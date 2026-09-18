@@ -136,5 +136,11 @@ void cpu_add_a_d();         // 0x82
 void cpu_add_a_e();         // 0x83
 void cpu_add_a_h();         // 0x84
 void cpu_add_a_l();         // 0x85
+void cpu_adc_a_b();         // 0x88
+void cpu_adc_a_c();         // 0x89
+void cpu_adc_a_d();         // 0x8a
+void cpu_adc_a_e();         // 0x8b
+void cpu_adc_a_h();         // 0x8c
+void cpu_adc_a_l();         // 0x8d
 void cpu_xor_a();           // 0xAF
 void cpu_jp_nn();           // 0xC3

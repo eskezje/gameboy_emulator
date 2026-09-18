@@ -27,6 +27,19 @@
   core_advance_cpu_clocks(4);                                          \
 }
 
+#define cpu_routine_adc_a_8(reg8)                                                         \
+{                                                                                        \
+  SET_FLAG_SUBTRACT(0);                                                                  \
+  uint8_t carry = GET_FLAG_CARRY;                                                        \
+  uint16_t temp = (uint16_t)cpu_registers.a + (uint16_t)reg8 + (uint16_t)carry;          \
+  bool hc = (((cpu_registers.a & 0x0F) + (reg8 & 0x0F) + carry) > 0x0F);                 \
+  SET_FLAG_HALF_CARRY(hc);                                                               \
+  SET_FLAG_CARRY(temp > 0xFF);                                                           \
+  cpu_registers.a = (uint8_t)temp;                                                       \
+  SET_FLAG_ZERO(cpu_registers.a == 0);                                                   \
+  core_advance_cpu_clocks(4);                                                            \
+}
+
 #define cpu_routine_inc_16(reg16)    \
 {                                   \
   core_advance_cpu_clocks(4);       \

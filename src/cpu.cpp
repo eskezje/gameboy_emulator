@@ -382,6 +382,36 @@ void cpu_add_a_l()  // 0x85
   cpu_routine_add_a_8(cpu_registers.l);
 }
 
+void cpu_adc_a_b()  // 0x88
+{
+  cpu_routine_adc_a_8(cpu_registers.b);
+}
+
+void cpu_adc_a_c()  // 0x89
+{
+  cpu_routine_adc_a_8(cpu_registers.c);
+}
+
+void cpu_adc_a_d()  // 0x8a
+{
+  cpu_routine_adc_a_8(cpu_registers.d);
+}
+
+void cpu_adc_a_e()  // 0x8b
+{
+  cpu_routine_adc_a_8(cpu_registers.e);
+}
+
+void cpu_adc_a_h()  // 0x8c
+{
+  cpu_routine_adc_a_8(cpu_registers.h);
+}
+
+void cpu_adc_a_b()  // 0x8d
+{
+  cpu_routine_adc_a_8(cpu_registers.l);
+}
+
 void cpu_xor_a()  // 0xAF
 {
   cpu_registers.a = 0;
