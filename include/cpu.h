@@ -1,0 +1,120 @@
+#pragma once
+#include <cstdint>
+#include <stdint.h>
+
+#define SET_FLAG_ZERO(value)              cpu_registers.f = (cpu_registers.f & ~(1UL << 7)) | ((value) << 7);
+#define GET_FLAG_ZERO                     ((cpu_registers.f >> 7) & 1)
+#define SET_FLAG_SUBTRACT(value)          cpu_registers.f = (cpu_registers.f & ~(1UL << 6)) | ((value) << 6);
+#define GET_FLAG_SUBTRACT                 ((cpu_registers.f >> 6) & 1)
+#define SET_FLAG_HALF_CARRY(value)        cpu_registers.f = (cpu_registers.f & ~(1UL << 5)) | ((value) << 5);
+#define GET_FLAG_HALF_CARRY               ((cpu_registers.f >> 5) & 1)
+#define SET_FLAG_CARRY(value)             cpu_registers.f = (cpu_registers.f & ~(1UL << 4)) | ((value) << 4);
+#define GET_FLAG_CARRY                    ((cpu_registers.f >> 4) & 1)
+
+
+
+struct gb_cpu_registers {
+
+    union {
+        struct {
+            uint8_t f;  // Flags
+            uint8_t a;  // Accumulator
+        };
+        uint16_t af;
+    };
+
+    union {
+        struct {
+            uint8_t c;
+            uint8_t b;
+        };
+        uint16_t bc;
+    };
+
+    union {
+        struct {
+            uint8_t e;
+            uint8_t d;
+        };
+        uint16_t de;
+    };
+
+    union {
+        struct {
+            uint8_t l;
+            uint8_t h;
+        };
+        uint16_t hl;
+    };
+
+    union {
+      struct {
+        uint8_t p;
+        uint8_t s;
+      };
+      uint16_t sp;    // stack pointer
+    };
+    
+    uint16_t pc;  // program counter
+};
+
+typedef void (*cpu_execute_op)();
+
+extern gb_cpu_registers cpu_registers;
+
+extern uint8_t IME;
+
+void cpu_reset();
+void cpu_fetch();
+bool cpu_execute();
+
+// CPU Operations
+void cpu_noop();            // 0x00
+void cpu_ld_bc_nn();        // 0x01
+void cpu_ld_bc_a();         // 0x02
+void cpu_inc_bc();          // 0x03
+void cpu_dec_b();           // 0x05
+void cpu_ld_b_n();          // 0x06
+void cpu_ld_a_bc();         // 0x0A
+void cpu_dec_c();           // 0x0D
+void cpu_ld_c_n();          // 0x0E
+void cpu_ld_de_nn();        // 0x11
+void cpu_ld_de_a();         // 0x12
+void cpu_inc_de();          // 0x13
+void cpu_dec_d();           // 0x15
+void cpu_ld_d_n();          // 0x16
+void cpu_jr_e();            // 0x18
+void cpu_ld_a_de();         // 0x1A
+void cpu_dec_e();           // 0x1D
+void cpu_ld_e_n();          // 0x1E
+void cpu_jr_nz_e();         // 0x20
+void cpu_ld_hl_nn();        // 0x21
+void cpu_inc_hl();          // 0x23
+void cpu_dec_h();           // 0x25
+void cpu_ld_h_n();          // 0x26
+void cpu_jr_z_e();          // 0x28
+void cpu_dec_l();           // 0x2D
+void cpu_ld_l_n();          // 0x2E
+void cpu_jr_nc_e();         // 0x30
+void cpu_ld_sp_nn();        // 0x31
+void cpu_ldd_hl_a();        // 0x32
+void cpu_inc_sp();          // 0x33
+void cpu_jr_c_e();          // 0x38
+void cpu_dec_a();           // 0x3D
+void cpu_ld_a_n();          // 0x3E
+void cpu_ld_b_hl();         // 0x46
+void cpu_ld_c_hl();         // 0x4E
+void cpu_ld_d_hl();         // 0x56
+void cpu_ld_e_hl();         // 0x5E
+void cpu_ld_h_hl();         // 0x66
+void cpu_ld_l_hl();         // 0x6E
+void cpu_ld_hl_b();         // 0x70
+void cpu_ld_hl_c();         // 0x71
+void cpu_ld_hl_d();         // 0x72
+void cpu_ld_hl_e();         // 0x73
+void cpu_ld_hl_h();         // 0x74
+void cpu_ld_hl_l();         // 0x75
+void cpu_ld_hl_a();         // 0x77
+void cpu_ld_a_hl();         // 0x7E
+void cpu_xor_a();           // 0xAF
+void cpu_jp_nn();           // 0xC3
