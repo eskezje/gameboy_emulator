@@ -11,7 +11,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD B, n", 1, cpu_ld_b_n},     // 0x06
     {"RLCA", 0, nullptr},        // 0x07
     {"LD (nn), SP", 2, nullptr}, // 0x08
-    {"ADD HL, BC", 0, nullptr},  // 0x09
+    {"ADD HL, BC", 0, cpu_add_hl_bc},  // 0x09
     {"LD A, (BC)", 0, cpu_ld_a_bc},  // 0x0a
     {"DEC BC", 0, cpu_dec_bc},      // 0x0b
     {"INC C", 0, cpu_inc_c},       // 0x0c
@@ -27,7 +27,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD D, n", 1, cpu_ld_d_n},     // 0x16
     {"RLA", 0, nullptr},         // 0x17
     {"JR e", 1, cpu_jr_e},        // 0x18
-    {"ADD HL, DE", 0, nullptr},  // 0x19
+    {"ADD HL, DE", 0, cpu_add_hl_de},  // 0x19
     {"LD A, (DE)", 0, cpu_ld_a_de},  // 0x1a
     {"DEC DE", 0, cpu_dec_de},      // 0x1b
     {"INC E", 0, cpu_inc_e},       // 0x1c
@@ -59,7 +59,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD (HL), n", 1, nullptr},  // 0x36
     {"SCF", 0, nullptr},         // 0x37
     {"JR C, e", 1, cpu_jr_c_e},     // 0x38
-    {"ADD HL, SP", 0, nullptr},  // 0x39
+    {"ADD HL, SP", 0, cpu_add_hl_sp},  // 0x39
     {"LD A, (HL-)", 0, nullptr}, // 0x3a
     {"DEC SP", 0, cpu_dec_sp},      // 0x3b
     {"INC A", 0, cpu_inc_a},       // 0x3c
@@ -130,12 +130,12 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD A, L", 0, nullptr},     // 0x7d
     {"LD A, (HL)", 0, cpu_ld_a_hl},  // 0x7e
     {"LD A, A", 0, nullptr},     // 0x7f
-    {"ADD A, B", 0, nullptr},    // 0x80
-    {"ADD A, C", 0, nullptr},    // 0x81
-    {"ADD A, D", 0, nullptr},    // 0x82
-    {"ADD A, E", 0, nullptr},    // 0x83
-    {"ADD A, H", 0, nullptr},    // 0x84
-    {"ADD A, L", 0, nullptr},    // 0x85
+    {"ADD A, B", 0, cpu_add_a_b},    // 0x80
+    {"ADD A, C", 0, cpu_add_a_c},    // 0x81
+    {"ADD A, D", 0, cpu_add_a_d},    // 0x82
+    {"ADD A, E", 0, cpu_add_a_e},    // 0x83
+    {"ADD A, H", 0, cpu_add_a_h},    // 0x84
+    {"ADD A, L", 0, cpu_add_a_l},    // 0x85
     {"ADD A, (HL)", 0, nullptr}, // 0x86
     {"ADD A, A", 0, nullptr},    // 0x87
     {"ADC A, B", 0, nullptr},    // 0x88
