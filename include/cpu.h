@@ -147,6 +147,12 @@ void cpu_sub_a_c();         // 0x91
 void cpu_sub_a_d();         // 0x92
 void cpu_sub_a_e();         // 0x93
 void cpu_sub_a_h();         // 0x94
-void cpu_sub_a_l();         // 0x94
+void cpu_sub_a_l();         // 0x95
+void cpu_subc_a_b();        // 0x98
+void cpu_subc_a_c();        // 0x99
+void cpu_subc_a_d();        // 0x9A
+void cpu_subc_a_e();        // 0x9B
+void cpu_subc_a_h();        // 0x9C
+void cpu_subc_a_l();        // 0x9D
 void cpu_xor_a();           // 0xAF
 void cpu_jp_nn();           // 0xC3
