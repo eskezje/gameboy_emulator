@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #include <stdint.h>
 #include <emulator_core.h>
 #include <memory_bus.h>
@@ -196,4 +195,16 @@
   core_advance_cpu_clocks(4);                                                         \
   memory_bus_write(cpu_registers.sp, (uint8_t)pc_lsb);                                \
   cpu_registers.pc = (uint16_t)addr;                                                  \
+}
+
+#define cpu_routine_push_16(reg_hi, reg_lo)                                           \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  cpu_registers.sp--;                                                                 \
+  core_advance_cpu_clocks(4);                                                         \
+  memory_bus_write(cpu_registers.sp, reg_hi);                                         \
+  cpu_registers.sp--;                                                                 \
+  core_advance_cpu_clocks(4);                                                         \
+  memory_bus_write(cpu_registers.sp, reg_lo);                                         \
+  core_advance_cpu_clocks(4);                                                         \
 }
