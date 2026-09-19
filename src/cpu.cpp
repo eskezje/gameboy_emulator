@@ -472,16 +472,100 @@ void cpu_ld_e_a()          // 0x5F
   cpu_registers.e = cpu_registers.a;
 }
 
+void cpu_ld_h_b()          // 0x60
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.h = cpu_registers.b;
+}
+
+void cpu_ld_h_c()          // 0x61
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.h = cpu_registers.c;
+}
+
+void cpu_ld_h_d()          // 0x62
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.h = cpu_registers.d;
+}
+
+void cpu_ld_h_e()          // 0x63
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.h = cpu_registers.e;
+}
+
+void cpu_ld_h_h()          // 0x64
+{
+  core_advance_cpu_clocks(4);
+}
+
+void cpu_ld_h_l()          // 0x65
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.h = cpu_registers.l;
+}
+
 
 void cpu_ld_h_hl()    // 0x66
 {
   cpu_routine_ld_8_from_ptr16(cpu_registers.h, cpu_registers.hl);
 }
 
+void cpu_ld_h_a()          // 0x67
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.h = cpu_registers.a;
+}
+
+void cpu_ld_l_b()          // 0x68
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.l = cpu_registers.b;
+}
+
+void cpu_ld_l_c()          // 0x69
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.l = cpu_registers.c;
+}
+
+void cpu_ld_l_d()          // 0x6A
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.l = cpu_registers.d;
+}
+
+void cpu_ld_l_e()          // 0x6B
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.l = cpu_registers.e;
+}
+
+void cpu_ld_l_h()          // 0x6C
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.l = cpu_registers.h;
+}
+
+void cpu_ld_l_l()          // 0x6D
+{
+  core_advance_cpu_clocks(4);
+}
+
+
 void cpu_ld_l_hl()  // 0x6E
 {
   cpu_routine_ld_8_from_ptr16(cpu_registers.l, cpu_registers.hl);
 }
+
+void cpu_ld_l_a()          // 0x6F
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.l = cpu_registers.a;
+}
+
 
 void cpu_ld_hl_b()    // 0x70
 {
@@ -518,9 +602,52 @@ void cpu_ld_hl_a()  // 0x77
   cpu_routine_ld_ptr16_from_8(cpu_registers.hl, cpu_registers.a);  
 }
 
+void cpu_ld_a_b()          // 0x78
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = cpu_registers.b;
+}
+
+void cpu_ld_a_c()          // 0x79
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = cpu_registers.c;
+}
+
+void cpu_ld_a_d()          // 0x7A
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = cpu_registers.d;
+}
+
+void cpu_ld_a_e()          // 0x7B
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = cpu_registers.e;
+}
+
+void cpu_ld_a_h()          // 0x7C
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = cpu_registers.h;
+}
+
+void cpu_ld_a_l()          // 0x7D
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = cpu_registers.l;
+}
+
+
+
 void cpu_ld_a_hl()  // 0x7E
 {
   cpu_routine_ld_8_from_ptr16(cpu_registers.a, cpu_registers.hl);
+}
+
+void cpu_ld_a_a()          // 0x7F
+{
+  core_advance_cpu_clocks(4);
 }
 
 void cpu_add_a_b()  // 0x80
