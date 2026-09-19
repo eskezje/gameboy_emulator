@@ -172,7 +172,13 @@
   core_advance_cpu_clocks(4);                                                         \
 }
 
-
-
-
+#define cpu_routine_cp_a_8(reg8)                                                      \
+{                                                                                     \
+  SET_FLAG_SUBTRACT(1);                                                               \
+  SET_FLAG_CARRY(reg8 > cpu_registers.a);                                             \
+  bool hc = (cpu_registers.a & 0x0F) < (reg8 & 0x0F);                                 \
+  SET_FLAG_HALF_CARRY(hc);                                                            \
+  SET_FLAG_ZERO(reg8 == cpu_registers.a);                                             \
+  core_advance_cpu_clocks(4);                                                         \
+}
 

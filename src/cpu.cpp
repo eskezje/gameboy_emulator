@@ -573,6 +573,35 @@ void cpu_or_a_l()          // 0xB5
   cpu_routine_or_a_8(cpu_registers.l);
 }
 
+void cpu_cp_a_b()          // 0xB8
+{
+  cpu_routine_cp_a_8(cpu_registers.b);
+}
+
+void cpu_cp_a_c()          // 0xB9
+{
+  cpu_routine_cp_a_8(cpu_registers.c);
+}
+
+void cpu_cp_a_d()          // 0xBA
+{
+  cpu_routine_cp_a_8(cpu_registers.d);
+}
+
+void cpu_cp_a_e()          // 0xBB
+{
+  cpu_routine_cp_a_8(cpu_registers.e);
+}
+
+void cpu_cp_a_h()          // 0xBC
+{
+  cpu_routine_cp_a_8(cpu_registers.h);
+}
+
+void cpu_cp_a_l()          // 0xBD
+{
+  cpu_routine_cp_a_8(cpu_registers.l);
+}
 
 void cpu_jp_nn()    // 0xC3
 {
