@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #include <stdint.h>
 #include <emulator_core.h>
 #include <memory_bus.h>
