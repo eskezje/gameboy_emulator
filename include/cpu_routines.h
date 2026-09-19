@@ -4,6 +4,7 @@
 #include <emulator_core.h>
 #include <memory_bus.h>
 #include <cpu.h>
+#include <sys/types.h>
 
 #define cpu_routine_add_hl_16(reg16)                                                  \
 {                                                                                     \
@@ -241,5 +242,20 @@
     core_advance_cpu_clocks(4);                                                       \
     memory_bus_write(cpu_registers.sp, (uint8_t)(cpu_registers.pc & 0x00FF));         \
     cpu_registers.pc = nn;                                                            \
+  }                                                                                   \
+}
+
+
+#define cpu_routine_return_conditional(condition)                                  \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  core_advance_cpu_clocks(4);                                                         \
+  if (condition) {                                                                    \
+    core_advance_cpu_clocks(4);                                                       \
+    uint8_t lsb = memory_bus_read(cpu_registers.sp++);                                \
+    core_advance_cpu_clocks(4);                                                       \
+    uint8_t msb = memory_bus_read(cpu_registers.sp++);                                \
+    core_advance_cpu_clocks(4);                                                       \
+    cpu_registers.pc = (uint16_t)(msb << 8) | (uint16_t)(lsb);                        \
   }                                                                                   \
 }
