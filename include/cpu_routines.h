@@ -208,3 +208,16 @@
   memory_bus_write(cpu_registers.sp, reg_lo);                                         \
   core_advance_cpu_clocks(4);                                                         \
 }
+
+#define cpu_routine_pop_16(reg_hi, reg_lo)                                            \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t lsb = memory_bus_read(cpu_registers.sp);                                    \
+  cpu_registers.sp++;                                                                 \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t msb = memory_bus_read(cpu_registers.sp);                                    \
+  cpu_registers.sp++;                                                                 \
+  reg_hi = msb;                                                                       \
+  reg_lo = lsb;                                                                       \
+  core_advance_cpu_clocks(4);                                                         \
+}

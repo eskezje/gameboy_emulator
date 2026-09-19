@@ -195,7 +195,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"CP (HL)", 0, nullptr},                      // 0xBE
     {"CP A", 0, nullptr},                         // 0xBF
     {"RET NZ", 0, nullptr},                       // 0xC0
-    {"POP BC", 0, nullptr},                       // 0xC1
+    {"POP BC", 0, cpu_pop_bc},                    // 0xC1
     {"JP NZ, nn", 2, nullptr},                    // 0xC2
     {"JP nn", 2, cpu_jp_nn},                      // 0xC3
     {"CALL NZ, nn", 2, nullptr},                  // 0xC4
@@ -211,7 +211,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"ADC A, n", 1, nullptr},                     // 0xCE
     {"RST 08H", 0, cpu_rst_08},                   // 0xCF
     {"RET NC", 0, nullptr},                       // 0xD0
-    {"POP DE", 0, nullptr},                       // 0xD1
+    {"POP DE", 0, cpu_pop_de},                    // 0xD1
     {"JP NC, nn", 2, nullptr},                    // 0xD2
     {"ILLEGAL", 0, nullptr},                      // 0xD3
     {"CALL NC, nn", 2, nullptr},                  // 0xD4
@@ -227,7 +227,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"SBC A, n", 1, nullptr},                     // 0xDE
     {"RST 18H", 0, cpu_rst_18},                   // 0xDF
     {"LDH (n), A", 1, nullptr},                   // 0xE0
-    {"POP HL", 0, nullptr},                       // 0xE1
+    {"POP HL", 0, cpu_pop_hl},                    // 0xE1
     {"LD (C), A", 0, nullptr},                    // 0xE2
     {"ILLEGAL", 0, nullptr},                      // 0xE3
     {"ILLEGAL", 0, nullptr},                      // 0xE4
@@ -243,7 +243,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"XOR n", 1, nullptr},                        // 0xEE
     {"RST 28H", 0, cpu_rst_28},                   // 0xEF
     {"LDH A, (n)", 1, nullptr},                   // 0xF0
-    {"POP AF", 0, nullptr},                       // 0xF1
+    {"POP AF", 0, cpu_pop_af},                    // 0xF1
     {"LD A, (C)", 0, nullptr},                    // 0xF2
     {"DI", 0, nullptr},                           // 0xF3
     {"ILLEGAL", 0, nullptr},                      // 0xF4
