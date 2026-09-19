@@ -74,14 +74,14 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD B, L", 0, cpu_ld_b_l},                   // 0x45
     {"LD B, (HL)", 0, cpu_ld_b_hl},               // 0x46
     {"LD B, A", 0, cpu_ld_b_a},                   // 0x47
-    {"LD C, B", 0, nullptr},                      // 0x48
-    {"LD C, C", 0, nullptr},                      // 0x49
-    {"LD C, D", 0, nullptr},                      // 0x4A
-    {"LD C, E", 0, nullptr},                      // 0x4B
-    {"LD C, H", 0, nullptr},                      // 0x4C
-    {"LD C, L", 0, nullptr},                      // 0x4D
+    {"LD C, B", 0, cpu_ld_c_b},                   // 0x48
+    {"LD C, C", 0, cpu_ld_c_c},                   // 0x49
+    {"LD C, D", 0, cpu_ld_c_d},                   // 0x4A
+    {"LD C, E", 0, cpu_ld_c_e},                   // 0x4B
+    {"LD C, H", 0, cpu_ld_c_h},                   // 0x4C
+    {"LD C, L", 0, cpu_ld_c_l},                   // 0x4D
     {"LD C, (HL)", 0, cpu_ld_c_hl},               // 0x4E
-    {"LD C, A", 0, nullptr},                      // 0x4F
+    {"LD C, A", 0, cpu_ld_c_a},                   // 0x4F
     {"LD D, B", 0, nullptr},                      // 0x50
     {"LD D, C", 0, nullptr},                      // 0x51
     {"LD D, D", 0, nullptr},                      // 0x52
