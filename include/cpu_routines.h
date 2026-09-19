@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include <stdint.h>
 #include <emulator_core.h>
 #include <memory_bus.h>
@@ -220,4 +221,25 @@
   reg_hi = msb;                                                                       \
   reg_lo = lsb;                                                                       \
   core_advance_cpu_clocks(4);                                                         \
+}
+
+#define cpu_routine_call_conditional_nn(condition)                                  \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t nn_lsb = memory_bus_read(cpu_registers.pc++);                               \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t nn_msb = memory_bus_read(cpu_registers.pc++);                               \
+  core_advance_cpu_clocks(4);                                                         \
+  uint16_t nn = (nn_msb << 8) | nn_lsb;                                               \
+  if (condition) {                                                                    \
+    core_advance_cpu_clocks(4);                                                       \
+    cpu_registers.sp--;                                                               \
+    uint8_t pc_msb = (cpu_registers.pc & 0xFF00) >> 8;                                \
+    core_advance_cpu_clocks(4);                                                       \
+    memory_bus_write(cpu_registers.sp, pc_msb);                                       \
+    cpu_registers.sp--;                                                               \
+    core_advance_cpu_clocks(4);                                                       \
+    memory_bus_write(cpu_registers.sp, (uint8_t)(cpu_registers.pc & 0x00FF));         \
+    cpu_registers.pc = nn;                                                            \
+  }                                                                                   \
 }
