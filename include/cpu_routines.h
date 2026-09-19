@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #include <stdint.h>
 #include <emulator_core.h>
 #include <memory_bus.h>
@@ -224,7 +223,7 @@
   core_advance_cpu_clocks(4);                                                         \
 }
 
-#define cpu_routine_call_conditional_nn(condition)                                  \
+#define cpu_routine_call_conditional_nn(condition)                                    \
 {                                                                                     \
   core_advance_cpu_clocks(4);                                                         \
   uint8_t nn_lsb = memory_bus_read(cpu_registers.pc++);                               \
@@ -246,7 +245,7 @@
 }
 
 
-#define cpu_routine_return_conditional(condition)                                  \
+#define cpu_routine_return_conditional(condition)                                     \
 {                                                                                     \
   core_advance_cpu_clocks(4);                                                         \
   core_advance_cpu_clocks(4);                                                         \
@@ -257,5 +256,20 @@
     uint8_t msb = memory_bus_read(cpu_registers.sp++);                                \
     core_advance_cpu_clocks(4);                                                       \
     cpu_registers.pc = (uint16_t)(msb << 8) | (uint16_t)(lsb);                        \
+  }                                                                                   \
+}
+
+
+#define cpu_routine_jump_conditional(condition)                                       \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t nn_lsb = memory_bus_read(cpu_registers.pc++);                               \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t nn_msb = memory_bus_read(cpu_registers.pc++);                               \
+  core_advance_cpu_clocks(4);                                                         \
+  uint16_t nn = (uint16_t)(nn_msb << 8) | (uint16_t)(nn_lsb);                         \
+  if (condition) {                                                                    \
+    core_advance_cpu_clocks(4);                                                       \
+    cpu_registers.pc = nn;                                                            \
   }                                                                                   \
 }
