@@ -615,3 +615,48 @@ void cpu_jp_nn()    // 0xC3
   cpu_registers.pc = temp;
   core_advance_cpu_clocks(4);
 }
+
+
+
+void cpu_rst_00()          // 0xC7
+{
+  cpu_routine_rst(0x00);
+}
+
+void cpu_rst_08()          // 0xCF
+{
+  cpu_routine_rst(0x08);
+}
+
+void cpu_rst_10()          // 0xD7
+{
+  cpu_routine_rst(0x10);
+}
+
+void cpu_rst_18()          // 0xDF
+{
+  cpu_routine_rst(0x18);
+}
+
+void cpu_rst_20()          // 0xE7
+{
+  cpu_routine_rst(0x20);
+}
+
+void cpu_rst_28()          // 0xEF
+{
+  cpu_routine_rst(0x28);
+}
+
+void cpu_rst_30()          // 0xF7
+{
+  cpu_routine_rst(0x30);
+}
+
+void cpu_rst_38()          // 0xFF
+{
+  cpu_routine_rst(0x38);
+}
+
+
+
