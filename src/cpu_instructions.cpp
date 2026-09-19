@@ -154,20 +154,20 @@ const struct gb_cpu_instruction instructions[256] = {
     {"SUB L", 0, cpu_sub_a_l},                    // 0x95
     {"SUB (HL)", 0, nullptr},                     // 0x96
     {"SUB A", 0, nullptr},                        // 0x97
-    {"SBC A, B", 0, cpu_subc_a_b},                     // 0x98
-    {"SBC A, C", 0, cpu_subc_a_c},                     // 0x99
-    {"SBC A, D", 0, cpu_subc_a_d},                     // 0x9A
-    {"SBC A, E", 0, cpu_subc_a_e},                     // 0x9B
-    {"SBC A, H", 0, cpu_subc_a_h},                     // 0x9C
-    {"SBC A, L", 0, cpu_subc_a_l},                     // 0x9D
+    {"SBC A, B", 0, cpu_sbc_a_b},                // 0x98
+    {"SBC A, C", 0, cpu_sbc_a_c},                // 0x99
+    {"SBC A, D", 0, cpu_sbc_a_d},                // 0x9A
+    {"SBC A, E", 0, cpu_sbc_a_e},                // 0x9B
+    {"SBC A, H", 0, cpu_sbc_a_h},                // 0x9C
+    {"SBC A, L", 0, cpu_sbc_a_l},                // 0x9D
     {"SBC A, (HL)", 0, nullptr},                  // 0x9E
     {"SBC A, A", 0, nullptr},                     // 0x9F
-    {"AND B", 0, nullptr},                        // 0xA0
-    {"AND C", 0, nullptr},                        // 0xA1
-    {"AND D", 0, nullptr},                        // 0xA2
-    {"AND E", 0, nullptr},                        // 0xA3
-    {"AND H", 0, nullptr},                        // 0xA4
-    {"AND L", 0, nullptr},                        // 0xA5
+    {"AND B", 0, cpu_and_a_b},                    // 0xA0
+    {"AND C", 0, cpu_and_a_c},                    // 0xA1
+    {"AND D", 0, cpu_and_a_d},                    // 0xA2
+    {"AND E", 0, cpu_and_a_e},                    // 0xA3
+    {"AND H", 0, cpu_and_a_h},                    // 0xA4
+    {"AND L", 0, cpu_and_a_l},                    // 0xA5
     {"AND (HL)", 0, nullptr},                     // 0xA6
     {"AND A", 0, nullptr},                        // 0xA7
     {"XOR B", 0, nullptr},                        // 0xA8

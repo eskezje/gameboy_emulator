@@ -62,8 +62,6 @@ typedef void (*cpu_execute_op)();
 
 extern gb_cpu_registers cpu_registers;
 
-extern uint8_t IME;
-
 void cpu_reset();
 void cpu_fetch();
 bool cpu_execute();
@@ -148,11 +146,17 @@ void cpu_sub_a_d();         // 0x92
 void cpu_sub_a_e();         // 0x93
 void cpu_sub_a_h();         // 0x94
 void cpu_sub_a_l();         // 0x95
-void cpu_subc_a_b();        // 0x98
-void cpu_subc_a_c();        // 0x99
-void cpu_subc_a_d();        // 0x9A
-void cpu_subc_a_e();        // 0x9B
-void cpu_subc_a_h();        // 0x9C
-void cpu_subc_a_l();        // 0x9D
+void cpu_sbc_a_b();        // 0x98
+void cpu_sbc_a_c();        // 0x99
+void cpu_sbc_a_d();        // 0x9A
+void cpu_sbc_a_e();        // 0x9B
+void cpu_sbc_a_h();        // 0x9C
+void cpu_sbc_a_l();        // 0x9D
+void cpu_and_a_b();         // 0xA0
+void cpu_and_a_c();         // 0xA1
+void cpu_and_a_d();         // 0xA2
+void cpu_and_a_e();         // 0xA3
+void cpu_and_a_h();         // 0xA4
+void cpu_and_a_l();         // 0xA5
 void cpu_xor_a();           // 0xAF
 void cpu_jp_nn();           // 0xC3

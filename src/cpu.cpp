@@ -8,7 +8,6 @@
 
 gb_cpu_registers cpu_registers;
 uint8_t cpu_current_op_code = 0;
-uint8_t IME = 1;
 uint32_t cpu_instructions_counter = 0;
 cpu_execute_op cpu_current_instruction_execute = nullptr;
 
@@ -20,8 +19,6 @@ void cpu_reset() {
   cpu_registers.hl = 0x014D;
   cpu_registers.pc = 0x0100;
   cpu_registers.sp = 0xFFFE;
-  // disable IME
-  IME = 0;
 }
 
 void cpu_fetch() {
@@ -245,6 +242,7 @@ void cpu_ldd_hl_a()   // 0x32
   core_advance_cpu_clocks(4);
   memory_bus_write(cpu_registers.hl, cpu_registers.a);
   cpu_registers.hl = (cpu_registers.hl - 1) & 0xFFFF;
+  core_advance_cpu_clocks(4);
 }
 
 void cpu_inc_sp()   // 0x33
@@ -442,35 +440,67 @@ void cpu_sub_a_l()  // 0x95
   cpu_routine_sub_a_8(cpu_registers.l);
 }
 
-void cpu_subc_a_b()        // 0x98
+void cpu_sbc_a_b()        // 0x98
 {
   cpu_routine_sbc_a_8(cpu_registers.b);
 }
 
-void cpu_subc_a_c()        // 0x99
+void cpu_sbc_a_c()        // 0x99
 {
   cpu_routine_sbc_a_8(cpu_registers.c);
 }
 
-void cpu_subc_a_d()        // 0x9A
+void cpu_sbc_a_d()        // 0x9A
 {
   cpu_routine_sbc_a_8(cpu_registers.d);
 }
 
-void cpu_subc_a_e()        // 0x9B
+void cpu_sbc_a_e()        // 0x9B
 {
   cpu_routine_sbc_a_8(cpu_registers.e);
 }
 
-void cpu_subc_a_h()        // 0x9C
+void cpu_sbc_a_h()        // 0x9C
 {
   cpu_routine_sbc_a_8(cpu_registers.h);
 }
 
-void cpu_subc_a_l()        // 0x9D
+void cpu_sbc_a_l()        // 0x9D
 {
   cpu_routine_sbc_a_8(cpu_registers.l);
 }
+
+
+void cpu_and_a_b()         // 0xA0
+{
+  cpu_routine_and_a_8(cpu_registers.b);
+}
+
+void cpu_and_a_c()         // 0xA1
+{
+  cpu_routine_and_a_8(cpu_registers.c);
+}
+
+void cpu_and_a_d()         // 0xA2
+{
+  cpu_routine_and_a_8(cpu_registers.d);
+}
+
+void cpu_and_a_e()         // 0xA3
+{
+  cpu_routine_and_a_8(cpu_registers.e);
+}
+
+void cpu_and_a_h()         // 0xA4
+{
+  cpu_routine_and_a_8(cpu_registers.h);
+}
+
+void cpu_and_a_l()         // 0xA5
+{
+  cpu_routine_and_a_8(cpu_registers.l);
+}
+
 
 void cpu_xor_a()  // 0xAF
 {
