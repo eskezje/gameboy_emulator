@@ -407,7 +407,7 @@ void cpu_adc_a_h()  // 0x8c
   cpu_routine_adc_a_8(cpu_registers.h);
 }
 
-void cpu_adc_a_b()  // 0x8d
+void cpu_adc_a_l()  // 0x8d
 {
   cpu_routine_adc_a_8(cpu_registers.l);
 }
