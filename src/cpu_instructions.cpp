@@ -82,22 +82,22 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD C, L", 0, cpu_ld_c_l},                   // 0x4D
     {"LD C, (HL)", 0, cpu_ld_c_hl},               // 0x4E
     {"LD C, A", 0, cpu_ld_c_a},                   // 0x4F
-    {"LD D, B", 0, nullptr},                      // 0x50
-    {"LD D, C", 0, nullptr},                      // 0x51
-    {"LD D, D", 0, nullptr},                      // 0x52
-    {"LD D, E", 0, nullptr},                      // 0x53
-    {"LD D, H", 0, nullptr},                      // 0x54
-    {"LD D, L", 0, nullptr},                      // 0x55
+    {"LD D, B", 0, cpu_ld_d_b},                   // 0x50
+    {"LD D, C", 0, cpu_ld_d_c},                   // 0x51
+    {"LD D, D", 0, cpu_ld_d_d},                   // 0x52
+    {"LD D, E", 0, cpu_ld_d_e},                   // 0x53
+    {"LD D, H", 0, cpu_ld_d_h},                   // 0x54
+    {"LD D, L", 0, cpu_ld_d_l},                   // 0x55
     {"LD D, (HL)", 0, cpu_ld_d_hl},               // 0x56
-    {"LD D, A", 0, nullptr},                      // 0x57
-    {"LD E, B", 0, nullptr},                      // 0x58
-    {"LD E, C", 0, nullptr},                      // 0x59
-    {"LD E, D", 0, nullptr},                      // 0x5A
-    {"LD E, E", 0, nullptr},                      // 0x5B
-    {"LD E, H", 0, nullptr},                      // 0x5C
-    {"LD E, L", 0, nullptr},                      // 0x5D
+    {"LD D, A", 0, cpu_ld_d_a},                   // 0x57
+    {"LD E, B", 0, cpu_ld_e_b},                   // 0x58
+    {"LD E, C", 0, cpu_ld_e_c},                   // 0x59
+    {"LD E, D", 0, cpu_ld_e_d},                   // 0x5A
+    {"LD E, E", 0, cpu_ld_e_e},                   // 0x5B
+    {"LD E, H", 0, cpu_ld_e_h},                   // 0x5C
+    {"LD E, L", 0, cpu_ld_e_l},                   // 0x5D
     {"LD E, (HL)", 0, cpu_ld_e_hl},               // 0x5E
-    {"LD E, A", 0, nullptr},                      // 0x5F
+    {"LD E, A", 0, cpu_ld_e_a},                   // 0x5F
     {"LD H, B", 0, nullptr},                      // 0x60
     {"LD H, C", 0, nullptr},                      // 0x61
     {"LD H, D", 0, nullptr},                      // 0x62
