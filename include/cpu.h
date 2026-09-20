@@ -83,6 +83,7 @@ void cpu_inc_c();           // 0x0C
 void cpu_dec_c();           // 0x0D
 void cpu_ld_c_n();          // 0x0E
 void cpu_rrca();            // 0x0F
+void cpu_stop();            // 0x10
 void cpu_ld_de_nn();        // 0x11
 void cpu_ld_de_a();         // 0x12
 void cpu_inc_de();          // 0x13

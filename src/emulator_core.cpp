@@ -2,6 +2,7 @@
 #include <cpu.h>
 #include <cstdint>
 #include <emulator_core.h>
+#include <timer.h>
 
 const char *tetris_path = "../roms/tetris.gb";
 uint32_t core_clock_counter = 0;
@@ -33,5 +34,6 @@ void core_run() {
 void core_shutdown() {}
 
 void core_advance_cpu_clocks(uint8_t clocks) {
+  timer_advance_clocks(clocks);
   core_clock_counter += clocks; 
 }
