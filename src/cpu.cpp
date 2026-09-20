@@ -188,6 +188,17 @@ void cpu_ld_d_n() // 0x16
   cpu_routine_ld_8(cpu_registers.d);
 }
 
+void cpu_rla()  // 0x17
+{
+  core_advance_cpu_clocks(4);
+  uint8_t bit7 = (cpu_registers.a & 0b10000000) >> 7;
+  cpu_registers.a = (cpu_registers.a << 1) | GET_FLAG_CARRY;
+  SET_FLAG_CARRY(bit7);
+  SET_FLAG_ZERO(0);
+  SET_FLAG_HALF_CARRY(0);
+  SET_FLAG_SUBTRACT(0);
+}
+
 void cpu_jr_e()  // 0x18
 {
   cpu_routine_jr(true);
@@ -221,6 +232,17 @@ void cpu_dec_e()  // 0x1D
 void cpu_ld_e_n()   // 0x1E
 {
   cpu_routine_ld_8(cpu_registers.e);
+}
+
+void cpu_rra()  // 0x1F
+{
+  core_advance_cpu_clocks(4);
+  uint8_t bit1 = (cpu_registers.a & 0b00000001);
+  cpu_registers.a = (cpu_registers.a >> 1) | (GET_FLAG_CARRY << 7);
+  SET_FLAG_CARRY(bit1);
+  SET_FLAG_ZERO(0);
+  SET_FLAG_HALF_CARRY(0);
+  SET_FLAG_SUBTRACT(0);
 }
 
 void cpu_jr_nz_e()    // 0x20
