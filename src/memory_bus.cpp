@@ -1,5 +1,9 @@
+#include <cstdint>
 #include <memory_bus.h>
 #include <cart.h>
+
+
+uint8_t memory[MEMORY_SIZE];
 
 uint8_t memory_bus_read(const uint16_t addr)
 {
