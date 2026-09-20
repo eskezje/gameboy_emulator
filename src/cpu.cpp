@@ -77,6 +77,16 @@ void cpu_ld_b_n() // 0x06
   cpu_routine_ld_8(cpu_registers.b);
 }
 
+void cpu_rlca()     // 0x07
+{
+  core_advance_cpu_clocks(4);
+  SET_FLAG_CARRY((0b10000000 & cpu_registers.a)>>7);
+  SET_FLAG_ZERO(0);
+  SET_FLAG_HALF_CARRY(0);
+  SET_FLAG_SUBTRACT(0);
+  cpu_registers.a = (cpu_registers.a << 1) | GET_FLAG_CARRY;
+}
+
 void cpu_add_hl_bc()    // 0x09
 {
   cpu_routine_add_hl_16(cpu_registers.bc);
