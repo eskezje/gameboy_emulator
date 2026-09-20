@@ -255,6 +255,15 @@ void cpu_ld_hl_nn()   // 0x21
   cpu_routine_ld_16(cpu_registers.h, cpu_registers.l);
 }
 
+
+void cpu_ldi_hl_a()   // 0x22
+{
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, cpu_registers.a);
+  cpu_registers.hl = (cpu_registers.hl + 1) & 0xFFFF;
+  core_advance_cpu_clocks(4);
+}
+
 void cpu_inc_hl()   // 0x23
 {
   cpu_routine_inc_16(cpu_registers.hl);

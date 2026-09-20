@@ -101,6 +101,7 @@ void cpu_ld_e_n();          // 0x1E
 void cpu_rra();             // 0x1F
 void cpu_jr_nz_e();         // 0x20
 void cpu_ld_hl_nn();        // 0x21
+void cpu_ldi_hl_a();        // 0x22
 void cpu_inc_hl();          // 0x23
 void cpu_inc_h();           // 0x24
 void cpu_dec_h();           // 0x25

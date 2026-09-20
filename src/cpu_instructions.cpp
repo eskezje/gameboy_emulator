@@ -36,7 +36,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"RRA", 0, cpu_rra},                          // 0x1F
     {"JR NZ, e", 1, cpu_jr_nz_e},                 // 0x20
     {"LD HL, nn", 2, cpu_ld_hl_nn},               // 0x21
-    {"LD (HL+), A", 0, nullptr},                  // 0x22
+    {"LD (HL+), A", 0, cpu_ldi_hl_a},             // 0x22
     {"INC HL", 0, cpu_inc_hl},                    // 0x23
     {"INC H", 0, cpu_inc_h},                      // 0x24
     {"DEC H", 0, cpu_dec_h},                      // 0x25
