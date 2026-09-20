@@ -283,10 +283,44 @@ void cpu_ld_h_n()   // 0x26
 {
   cpu_routine_ld_8(cpu_registers.h);
 }
+void cpu_daa()             // 0x27
+{
+  core_advance_cpu_clocks(4);
+  if (!GET_FLAG_SUBTRACT) {
+    // after an addition, adjust if (half-)carry occured if result is out of bounds
+    if (GET_FLAG_CARRY || cpu_registers.a > 0x99) {
+      cpu_registers.a += 0x60;
+      SET_FLAG_CARRY(1);
+    }
+    if (GET_FLAG_HALF_CARRY || (cpu_registers.a & 0x0F) > 0x09) {
+      cpu_registers.a += 0x6;
+    }
+  }
+  else {
+    if (GET_FLAG_CARRY) {
+      cpu_registers.a -= 0x60;
+    }
+    if (GET_FLAG_HALF_CARRY) {
+      cpu_registers.a -= 0x6;
+    }
+  }
+  SET_FLAG_ZERO(cpu_registers.a == 0);
+  SET_FLAG_HALF_CARRY(0);
+}
 
 void cpu_jr_z_e()   // 0x28
 {
   cpu_routine_jr(GET_FLAG_ZERO);
+}
+
+void cpu_add_hl_hl()    // 0x29
+{
+  core_advance_cpu_clocks(4);
+  SET_FLAG_SUBTRACT(0);
+  SET_FLAG_CARRY((cpu_registers.hl & 0x8000) != 0);
+  SET_FLAG_HALF_CARRY((cpu_registers.hl & 0x0800) != 0);
+  core_advance_cpu_clocks(4);
+  cpu_registers.hl = (cpu_registers.hl << 1) & 0xFFFF;
 }
 
 void cpu_dec_hl()   // 0x2B
