@@ -109,10 +109,12 @@ void cpu_ld_h_n();          // 0x26
 void cpu_daa();             // 0x27
 void cpu_jr_z_e();          // 0x28
 void cpu_add_hl_hl();       // 0x29
+void cpu_ldi_a_hl();        // 0x2A
 void cpu_dec_hl();          // 0x2B
 void cpu_inc_l();           // 0x2C
 void cpu_dec_l();           // 0x2D
 void cpu_ld_l_n();          // 0x2E
+void cpu_cpl();             // 0x2F
 void cpu_jr_nc_e();         // 0x30
 void cpu_ld_sp_nn();        // 0x31
 void cpu_ldd_hl_a();        // 0x32

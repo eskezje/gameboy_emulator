@@ -323,6 +323,14 @@ void cpu_add_hl_hl()    // 0x29
   cpu_registers.hl = (cpu_registers.hl << 1) & 0xFFFF;
 }
 
+void cpu_ldi_a_hl()     // 0x2A
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = memory_bus_read(cpu_registers.hl);
+  core_advance_cpu_clocks(4);
+  cpu_registers.hl = (cpu_registers.hl + 1) & 0xFFFF;
+}
+
 void cpu_dec_hl()   // 0x2B
 {
   cpu_routine_dec_16(cpu_registers.hl);
@@ -341,6 +349,14 @@ void cpu_dec_l()    // 0x2D
 void cpu_ld_l_n()   // 0x2E
 {
   cpu_routine_ld_8(cpu_registers.l);
+}
+
+void cpu_cpl()  // 0x2F
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = ~(cpu_registers.a);
+  SET_FLAG_SUBTRACT(1);
+  SET_FLAG_HALF_CARRY(1);
 }
 
 void cpu_jr_nc_e()  // 0x30
