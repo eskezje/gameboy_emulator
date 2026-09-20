@@ -119,6 +119,8 @@ void cpu_jr_nc_e();         // 0x30
 void cpu_ld_sp_nn();        // 0x31
 void cpu_ldd_hl_a();        // 0x32
 void cpu_inc_sp();          // 0x33
+void cpu_inc__hl();         // 0x34
+void cpu_dec__hl();         // 0x34
 void cpu_jr_c_e();          // 0x38
 void cpu_add_hl_sp();       // 0x39
 void cpu_dec_sp();          // 0x3B

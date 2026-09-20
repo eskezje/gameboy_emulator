@@ -382,6 +382,32 @@ void cpu_inc_sp()   // 0x33
   cpu_routine_inc_16(cpu_registers.sp);
 }
 
+void cpu_inc__hl()   // 0x34
+{
+  core_advance_cpu_clocks(4);
+  uint32_t data = memory_bus_read(cpu_registers.hl);
+  uint32_t result = data + 1;
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, result & 0xFF);
+  core_advance_cpu_clocks(4);
+  SET_FLAG_ZERO((result & 0xFF) == 0);
+  SET_FLAG_SUBTRACT(0);
+  SET_FLAG_HALF_CARRY((data & 0b1111) == 0b1111);
+}
+
+void cpu_dec__hl()   // 0x35
+{
+  core_advance_cpu_clocks(4);
+  uint32_t data = memory_bus_read(cpu_registers.hl);
+  uint32_t result = data - 1;
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, result & 0xFF);
+  core_advance_cpu_clocks(4);
+  SET_FLAG_ZERO((result & 0xFF) == 0);
+  SET_FLAG_SUBTRACT(1);
+  SET_FLAG_HALF_CARRY((data & 0x0F) == 0);
+}
+
 void cpu_jr_c_e()   // 0x38
 {
   cpu_routine_jr(GET_FLAG_CARRY);
