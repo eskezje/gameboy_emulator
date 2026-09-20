@@ -120,9 +120,12 @@ void cpu_ld_sp_nn();        // 0x31
 void cpu_ldd_hl_a();        // 0x32
 void cpu_inc_sp();          // 0x33
 void cpu_inc__hl();         // 0x34
-void cpu_dec__hl();         // 0x34
+void cpu_dec__hl();         // 0x35
+void cpu_ld_hl_n();         // 0x36
+void cpu_scf();             // 0x37
 void cpu_jr_c_e();          // 0x38
 void cpu_add_hl_sp();       // 0x39
+void cpu_ldd_a_hl();        // 0x3A
 void cpu_dec_sp();          // 0x3B
 void cpu_inc_a();           // 0x3C
 void cpu_dec_a();           // 0x3D

@@ -56,11 +56,11 @@ const struct gb_cpu_instruction instructions[256] = {
     {"INC SP", 0, cpu_inc_sp},                    // 0x33
     {"INC (HL)", 0, cpu_inc__hl},                 // 0x34
     {"DEC (HL)", 0, cpu_dec__hl},                 // 0x35
-    {"LD (HL), n", 1, nullptr},                   // 0x36
-    {"SCF", 0, nullptr},                          // 0x37
+    {"LD (HL), n", 1, cpu_ld_hl_n},               // 0x36
+    {"SCF", 0, cpu_scf},                          // 0x37
     {"JR C, e", 1, cpu_jr_c_e},                   // 0x38
     {"ADD HL, SP", 0, cpu_add_hl_sp},             // 0x39
-    {"LD A, (HL-)", 0, nullptr},                  // 0x3A
+    {"LD A, (HL-)", 0, cpu_ldd_a_hl},             // 0x3A
     {"DEC SP", 0, cpu_dec_sp},                    // 0x3B
     {"INC A", 0, cpu_inc_a},                      // 0x3C
     {"DEC A", 0, cpu_dec_a},                      // 0x3D

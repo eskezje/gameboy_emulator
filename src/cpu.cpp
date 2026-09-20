@@ -408,6 +408,23 @@ void cpu_dec__hl()   // 0x35
   SET_FLAG_HALF_CARRY((data & 0x0F) == 0);
 }
 
+void cpu_ld_hl_n()  // 0x36
+{
+  core_advance_cpu_clocks(4);
+  uint8_t n = memory_bus_read(cpu_registers.pc++);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, n);
+  core_advance_cpu_clocks(4);
+}
+
+void cpu_scf()  // 0x37
+{
+  core_advance_cpu_clocks(4);
+  SET_FLAG_SUBTRACT(0);
+  SET_FLAG_HALF_CARRY(0);
+  SET_FLAG_CARRY(1);
+}
+
 void cpu_jr_c_e()   // 0x38
 {
   cpu_routine_jr(GET_FLAG_CARRY);
@@ -416,6 +433,14 @@ void cpu_jr_c_e()   // 0x38
 void cpu_add_hl_sp()    // 0x39
 {
   cpu_routine_add_hl_16(cpu_registers.sp);
+}
+
+void cpu_ldd_a_hl()        // 0x3A
+{
+  core_advance_cpu_clocks(4);
+  cpu_registers.a = memory_bus_read(cpu_registers.hl);
+  core_advance_cpu_clocks(4);
+  cpu_registers.hl = (cpu_registers.hl - 1) & 0xFFFF;
 }
 
 void cpu_dec_sp()   // 0x3B
