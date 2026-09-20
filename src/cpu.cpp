@@ -87,6 +87,22 @@ void cpu_rlca()     // 0x07
   cpu_registers.a = (cpu_registers.a << 1) | GET_FLAG_CARRY;
 }
 
+void cpu_ld_nn_sp()     // 0x08
+{
+  core_advance_cpu_clocks(4);
+  uint8_t nn_lsb = memory_bus_read(cpu_registers.pc++);
+  core_advance_cpu_clocks(4);
+  uint8_t nn_msb = memory_bus_read(cpu_registers.pc++);
+  core_advance_cpu_clocks(4);
+  uint16_t nn = (uint16_t)(nn_msb << 8) | (uint16_t)nn_lsb;
+  core_advance_cpu_clocks(4);
+  uint8_t lsb_sp = (cpu_registers.sp & 0x00FF);
+  uint8_t msb_sp = ((cpu_registers.sp & 0xFF00) >> 8);
+  memory_bus_write(nn++, lsb_sp);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(nn, msb_sp);
+}
+
 void cpu_add_hl_bc()    // 0x09
 {
   cpu_routine_add_hl_16(cpu_registers.bc);
@@ -115,6 +131,16 @@ void cpu_dec_c()  // 0x0D
 void cpu_ld_c_n() // 0x0E
 {
   cpu_routine_ld_8(cpu_registers.c);
+}
+
+void cpu_rrca()     // 0x0F
+{
+  core_advance_cpu_clocks(4);
+  SET_FLAG_CARRY(0b00000001 & cpu_registers.a);
+  SET_FLAG_ZERO(0);
+  SET_FLAG_HALF_CARRY(0);
+  SET_FLAG_SUBTRACT(0);
+  cpu_registers.a = (cpu_registers.a >> 1) | (GET_FLAG_CARRY << 7);
 }
 
 void cpu_ld_de_nn() // 0x11

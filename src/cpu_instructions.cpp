@@ -10,14 +10,14 @@ const struct gb_cpu_instruction instructions[256] = {
     {"DEC B", 0, cpu_dec_b},                      // 0x05
     {"LD B, n", 1, cpu_ld_b_n},                   // 0x06
     {"RLCA", 0, cpu_rlca},                        // 0x07
-    {"LD (nn), SP", 2, nullptr},                  // 0x08
+    {"LD (nn), SP", 2, cpu_ld_nn_sp},             // 0x08
     {"ADD HL, BC", 0, cpu_add_hl_bc},             // 0x09
     {"LD A, (BC)", 0, cpu_ld_a_bc},               // 0x0A
     {"DEC BC", 0, cpu_dec_bc},                    // 0x0B
     {"INC C", 0, cpu_inc_c},                      // 0x0C
     {"DEC C", 0, cpu_dec_c},                      // 0x0D
     {"LD C, n", 1, cpu_ld_c_n},                   // 0x0E
-    {"RRCA", 0, nullptr},                         // 0x0F
+    {"RRCA", 0, cpu_rrca},                        // 0x0F
     {"STOP", 1, nullptr},                         // 0x10
     {"LD DE, nn", 2, cpu_ld_de_nn},               // 0x11
     {"LD (DE), A", 0, cpu_ld_de_a},               // 0x12
