@@ -16,6 +16,7 @@ add_executable(gameboy_emulator
     src/emulator_core.cpp
     src/memory_bus.cpp
     src/timer.cpp
+    src/interrupts.cpp
 )
 
 target_include_directories(gameboy_emulator PRIVATE

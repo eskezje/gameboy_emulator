@@ -3,7 +3,11 @@
 #include <cstdint>
 #include <stdint.h>
 
+#define CLEAR_BIT(number, bit) number &= ((number >> bit) & 1)
 #define CHECK_BIT(number, bit) ((number >> bit) & 1U)
+
+const uint16_t ADDR_IO_IF = 0xFF0F; // Interrupt flag
+const uint16_t ADDR_IO_IE = 0xFFFF; // Interrupt enable
 
 constexpr uint32_t MEMORY_SIZE = 64 * 1024;
 

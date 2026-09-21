@@ -1,3 +1,4 @@
+#include "interrupts.h"
 #include <timer.h>
 #include <cstdio>
 #include <memory_bus.h>
@@ -22,6 +23,21 @@ void cpu_reset() {
   cpu_registers.hl = 0x014D;
   cpu_registers.pc = 0x0100;
   cpu_registers.sp = 0xFFFE;
+}
+
+void cpu_tick()
+{
+  if (cpu_halt_count == 0) {
+    cpu_fetch();
+    cpu_execute();
+    cpu_instructions_counter++;
+  }
+  else {
+    core_advance_cpu_clocks(4); // halted, waiting for an interrupt to trigger
+
+  }
+
+  interrupt_service_routine();
 }
 
 void cpu_fetch() {
