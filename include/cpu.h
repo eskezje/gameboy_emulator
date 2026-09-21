@@ -130,6 +130,7 @@ void cpu_dec_sp();          // 0x3B
 void cpu_inc_a();           // 0x3C
 void cpu_dec_a();           // 0x3D
 void cpu_ld_a_n();          // 0x3E
+void cpu_ccf();             // 0x3F
 void cpu_ld_b_b();          // 0x40
 void cpu_ld_b_c();          // 0x41
 void cpu_ld_b_d();          // 0x42
