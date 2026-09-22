@@ -5,6 +5,7 @@
 
 #define CLEAR_BIT(number, bit) ((number) &= ~(1U << (bit)))
 #define CHECK_BIT(number, bit) ((number >> bit) & 1U)
+#define BIT(bit)    (1 << (bit))
 
 const uint16_t ADDR_IO_IF = 0xFF0F; // Interrupt flag
 const uint16_t ADDR_IO_IE = 0xFFFF; // Interrupt enable
