@@ -37,6 +37,7 @@ void interrupt_jump_to(uint16_t addr)
   cpu_registers.pc = addr;
   core_advance_cpu_clocks(4);
   interrupt_master_enable = false;
+  core_advance_cpu_clocks(4);
 }
 
 void interrupt_service_routine()
