@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <stdint.h>
 
-#define CLEAR_BIT(number, bit) number &= ((number >> bit) & 1)
+#define CLEAR_BIT(number, bit) ((number) &= ~(1U << (bit)))
 #define CHECK_BIT(number, bit) ((number >> bit) & 1U)
 
 const uint16_t ADDR_IO_IF = 0xFF0F; // Interrupt flag

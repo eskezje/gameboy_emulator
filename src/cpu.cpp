@@ -15,6 +15,8 @@ uint32_t cpu_instructions_counter = 0;
 cpu_execute_op cpu_current_instruction_execute = nullptr;
 uint8_t cpu_halt_count = 0; // 0 == not halted, 1 == halt instruction, 2 == stop instruction
 
+extern bool core_quit_requested;
+
 void cpu_reset() {
   // After executing boot rom registers should have these values
   cpu_registers.af = 0x1B0;
@@ -29,7 +31,10 @@ void cpu_tick()
 {
   if (cpu_halt_count == 0) {
     cpu_fetch();
-    cpu_execute();
+    if (!cpu_execute()) {
+      core_quit_requested = true;
+      return;
+    }
     cpu_instructions_counter++;
   }
   else {
@@ -484,7 +489,7 @@ void cpu_ccf()             // 0x3F
   core_advance_cpu_clocks(4);
   SET_FLAG_SUBTRACT(0);
   SET_FLAG_HALF_CARRY(0);
-  SET_FLAG_CARRY(~GET_FLAG_CARRY);
+  SET_FLAG_CARRY(!GET_FLAG_CARRY);
 }
 
 

@@ -62,6 +62,8 @@ typedef void (*cpu_execute_op)();
 
 extern gb_cpu_registers cpu_registers;
 
+extern bool core_quit_requested;
+
 void cpu_reset();
 void cpu_tick();
 void cpu_fetch();
