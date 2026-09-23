@@ -232,30 +232,30 @@ const struct gb_cpu_instruction instructions[256] = {
     {"ILLEGAL", 0, nullptr},                      // 0xE3
     {"ILLEGAL", 0, nullptr},                      // 0xE4
     {"PUSH HL", 0, cpu_push_hl},                  // 0xE5
-    {"AND n", 1, nullptr},                        // 0xE6
+    {"AND n", 1, cpu_and_n},                      // 0xE6
     {"RST 20H", 0, cpu_rst_20},                   // 0xE7
-    {"ADD SP, e", 1, nullptr},                    // 0xE8
-    {"JP HL", 0, nullptr},                        // 0xE9
-    {"LD (nn), A", 2, nullptr},                   // 0xEA
+    {"ADD SP, e", 1, cpu_add_sp_e},               // 0xE8
+    {"JP HL", 0, cpu_jp_hl},                      // 0xE9
+    {"LD (nn), A", 2, cpu_ld_nn_a},               // 0xEA
     {"ILLEGAL", 0, nullptr},                      // 0xEB
     {"ILLEGAL", 0, nullptr},                      // 0xEC
     {"ILLEGAL", 0, nullptr},                      // 0xED
-    {"XOR n", 1, nullptr},                        // 0xEE
+    {"XOR n", 1, cpu_xor_n},                      // 0xEE
     {"RST 28H", 0, cpu_rst_28},                   // 0xEF
-    {"LDH A, (n)", 1, nullptr},                   // 0xF0
+    {"LDH A, (n)", 1, cpu_ldh_a_n},               // 0xF0
     {"POP AF", 0, cpu_pop_af},                    // 0xF1
-    {"LD A, (C)", 0, nullptr},                    // 0xF2
+    {"LDH A, (C)", 0, cpu_ldh_a_c},               // 0xF2
     {"DI", 0, nullptr},                           // 0xF3
     {"ILLEGAL", 0, nullptr},                      // 0xF4
     {"PUSH AF", 0, cpu_push_af},                  // 0xF5
-    {"OR n", 1, nullptr},                         // 0xF6
+    {"OR n", 1, cpu_or_n},                        // 0xF6
     {"RST 30H", 0, cpu_rst_30},                   // 0xF7
-    {"LD HL, SP+e", 1, nullptr},                  // 0xF8
-    {"LD SP, HL", 0, nullptr},                    // 0xF9
-    {"LD A, (nn)", 2, nullptr},                   // 0xFA
+    {"LD HL, SP+e", 1, cpu_ld_hl_sp_e},           // 0xF8
+    {"LD SP, HL", 0, cpu_ld_sp_hl},               // 0xF9
+    {"LD A, (nn)", 2, cpu_ld_a_nn},               // 0xFA
     {"EI", 0, nullptr},                           // 0xFB
     {"ILLEGAL", 0, nullptr},                      // 0xFC
     {"ILLEGAL", 0, nullptr},                      // 0xFD
-    {"CP n", 1, nullptr},                         // 0xFE
+    {"CP n", 1, cpu_cp_n},                        // 0xFE
     {"RST 38H", 0, cpu_rst_38}                    // 0xFF
 };
