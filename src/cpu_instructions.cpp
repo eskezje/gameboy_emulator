@@ -153,7 +153,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"SUB H", 0, cpu_sub_a_h},                    // 0x94
     {"SUB L", 0, cpu_sub_a_l},                    // 0x95
     {"SUB (HL)", 0, nullptr},                     // 0x96
-    {"SUB A", 0, nullptr},                        // 0x97
+    {"SUB A", 0, cpu_sub_a_a},                    // 0x97
     {"SBC A, B", 0, cpu_sbc_a_b},                 // 0x98
     {"SBC A, C", 0, cpu_sbc_a_c},                 // 0x99
     {"SBC A, D", 0, cpu_sbc_a_d},                 // 0x9A
@@ -161,7 +161,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"SBC A, H", 0, cpu_sbc_a_h},                 // 0x9C
     {"SBC A, L", 0, cpu_sbc_a_l},                 // 0x9D
     {"SBC A, (HL)", 0, nullptr},                  // 0x9E
-    {"SBC A, A", 0, nullptr},                     // 0x9F
+    {"SBC A, A", 0, cpu_sbc_a_a},                 // 0x9F
     {"AND B", 0, cpu_and_a_b},                    // 0xA0
     {"AND C", 0, cpu_and_a_c},                    // 0xA1
     {"AND D", 0, cpu_and_a_d},                    // 0xA2
@@ -169,7 +169,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"AND H", 0, cpu_and_a_h},                    // 0xA4
     {"AND L", 0, cpu_and_a_l},                    // 0xA5
     {"AND (HL)", 0, nullptr},                     // 0xA6
-    {"AND A", 0, nullptr},                        // 0xA7
+    {"AND A", 0, cpu_and_a_a},                    // 0xA7
     {"XOR B", 0, cpu_xor_a_b},                    // 0xA8
     {"XOR C", 0, cpu_xor_a_c},                    // 0xA9
     {"XOR D", 0, cpu_xor_a_d},                    // 0xAA
@@ -185,7 +185,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"OR H", 0,  cpu_or_a_h},                     // 0xB4
     {"OR L", 0,  cpu_or_a_l},                     // 0xB5
     {"OR (HL)", 0, nullptr},                      // 0xB6
-    {"OR A", 0, nullptr},                         // 0xB7
+    {"OR A", 0, cpu_or_a_a},                      // 0xB7
     {"CP B", 0, cpu_cp_a_b},                      // 0xB8
     {"CP C", 0, cpu_cp_a_c},                      // 0xB9
     {"CP D", 0, cpu_cp_a_d},                      // 0xBA
@@ -193,7 +193,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"CP H", 0, cpu_cp_a_h},                      // 0xBC
     {"CP L", 0, cpu_cp_a_l},                      // 0xBD
     {"CP (HL)", 0, nullptr},                      // 0xBE
-    {"CP A", 0, nullptr},                         // 0xBF
+    {"CP A", 0, cpu_cp_a_a},                      // 0xBF
     {"RET NZ", 0, cpu_ret_nz},                    // 0xC0
     {"POP BC", 0, cpu_pop_bc},                    // 0xC1
     {"JP NZ, nn", 2, cpu_jp_nz},                  // 0xC2
