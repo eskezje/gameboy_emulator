@@ -49,8 +49,8 @@ void cpu_tick()
 void cpu_fetch() {
   // TODO: Read from memory bus  instead of directly fromt rom data
   
-  const bool is_extended_cb_instruction = cpu_current_op_code == 0xCB;
   cpu_current_op_code = memory_bus_read(cpu_registers.pc++);
+  const bool is_extended_cb_instruction = cpu_current_op_code == 0xCB;
 
   if (cpu_halt_bug) {
     cpu_registers.pc--; // repeat one byte during halt bug
