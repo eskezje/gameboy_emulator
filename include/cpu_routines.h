@@ -273,3 +273,15 @@
     cpu_registers.pc = nn;                                                            \
   }                                                                                   \
 }
+
+#define cpu_routine_rlc_8(reg8)                                                       \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  SET_FLAG_SUBTRACT(0);                                                               \
+  SET_FLAG_HALF_CARRY(0);                                                             \
+  SET_FLAG_CARRY((reg8 & 0b10000000) != 0);                                           \
+  reg8 = (reg8 << 1) | GET_FLAG_CARRY;                                                \
+  SET_FLAG_ZERO(!reg8);                                                               \
+  core_advance_cpu_clocks(4);                                                         \
+}
+

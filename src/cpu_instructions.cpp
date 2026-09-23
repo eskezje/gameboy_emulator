@@ -261,14 +261,14 @@ const struct gb_cpu_instruction instructions[256] = {
 };
 
 const gb_cpu_pre_cb_instruction cb_instructions[256] = {
-    {"RLC B", nullptr},        // 0x00
-    {"RLC C", nullptr},        // 0x01
-    {"RLC D", nullptr},        // 0x02
-    {"RLC E", nullptr},        // 0x03
-    {"RLC H", nullptr},        // 0x04
-    {"RLC L", nullptr},        // 0x05
-    {"RLC (HL)", nullptr},     // 0x06
-    {"RLC A", nullptr},        // 0x07
+    {"RLC B", cpu_cb_rlc_b},   // 0x00
+    {"RLC C", cpu_cb_rlc_c},   // 0x01
+    {"RLC D", cpu_cb_rlc_d},   // 0x02
+    {"RLC E", cpu_cb_rlc_e},   // 0x03
+    {"RLC H", cpu_cb_rlc_h},   // 0x04
+    {"RLC L", cpu_cb_rlc_l},   // 0x05
+    {"RLC (HL)", cpu_cb_rlc_hl},     // 0x06
+    {"RLC A", cpu_cb_rlc_a},   // 0x07
     {"RRC B", nullptr},        // 0x08
     {"RRC C", nullptr},        // 0x09
     {"RRC D", nullptr},        // 0x0A

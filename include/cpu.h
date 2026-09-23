@@ -314,3 +314,16 @@ void cpu_ld_a_nn();         // 0xFA
 void cpu_ei();              // 0xFB
 void cpu_cp_n();            // 0xFE
 void cpu_rst_38();          // 0xFF
+
+
+
+
+// CB Prefixed instructions
+void cpu_cb_rlc_b();    // 0x00
+void cpu_cb_rlc_c();    // 0x01
+void cpu_cb_rlc_d();    // 0x02
+void cpu_cb_rlc_e();    // 0x03
+void cpu_cb_rlc_h();    // 0x04
+void cpu_cb_rlc_l();    // 0x05
+void cpu_cb_rlc_hl();    // 0x06
+void cpu_cb_rlc_a();    // 0x07
