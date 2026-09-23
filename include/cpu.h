@@ -220,6 +220,7 @@ void cpu_sub_a_d();         // 0x92
 void cpu_sub_a_e();         // 0x93
 void cpu_sub_a_h();         // 0x94
 void cpu_sub_a_l();         // 0x95
+void cpu_sub_a_hl();        // 0x97
 void cpu_sub_a_a();         // 0x97
 void cpu_sbc_a_b();         // 0x98
 void cpu_sbc_a_c();         // 0x99
@@ -227,6 +228,7 @@ void cpu_sbc_a_d();         // 0x9A
 void cpu_sbc_a_e();         // 0x9B
 void cpu_sbc_a_h();         // 0x9C
 void cpu_sbc_a_l();         // 0x9D
+void cpu_sbc_a_hl();        // 0x9E
 void cpu_sbc_a_a();         // 0x9F
 void cpu_and_a_b();         // 0xA0
 void cpu_and_a_c();         // 0xA1
@@ -234,6 +236,7 @@ void cpu_and_a_d();         // 0xA2
 void cpu_and_a_e();         // 0xA3
 void cpu_and_a_h();         // 0xA4
 void cpu_and_a_l();         // 0xA5
+void cpu_and_a_hl();        // 0xA6
 void cpu_and_a_a();         // 0xA7
 void cpu_xor_a_b();         // 0xA8
 void cpu_xor_a_c();         // 0xA9
@@ -241,6 +244,7 @@ void cpu_xor_a_d();         // 0xAA
 void cpu_xor_a_e();         // 0xAB
 void cpu_xor_a_h();         // 0xAC
 void cpu_xor_a_l();         // 0xAD
+void cpu_xor_a_hl();        // 0xAE
 void cpu_xor_a();           // 0xAF
 void cpu_or_a_b();          // 0xB0
 void cpu_or_a_c();          // 0xB1
@@ -248,6 +252,7 @@ void cpu_or_a_d();          // 0xB2
 void cpu_or_a_e();          // 0xB3
 void cpu_or_a_h();          // 0xB4
 void cpu_or_a_l();          // 0xB5
+void cpu_or_a_hl();         // 0xB6
 void cpu_or_a_a();          // 0xB7
 void cpu_cp_a_b();          // 0xB8
 void cpu_cp_a_c();          // 0xB9
@@ -255,6 +260,7 @@ void cpu_cp_a_d();          // 0xBA
 void cpu_cp_a_e();          // 0xBB
 void cpu_cp_a_h();          // 0xBC
 void cpu_cp_a_l();          // 0xBD
+void cpu_cp_a_hl();         // 0xBE
 void cpu_cp_a_a();          // 0xBF
 void cpu_ret_nz();          // 0xC0
 void cpu_pop_bc();          // 0xC1
