@@ -200,15 +200,15 @@ const struct gb_cpu_instruction instructions[256] = {
     {"JP nn", 2, cpu_jp_nn},                      // 0xC3
     {"CALL NZ, nn", 2, cpu_call_nz},              // 0xC4
     {"PUSH BC", 0, cpu_push_bc},                  // 0xC5
-    {"ADD A, n", 1, nullptr},                     // 0xC6
+    {"ADD A, n", 1, cpu_add_a_n},                 // 0xC6
     {"RST 00H", 0, cpu_rst_00},                   // 0xC7
     {"RET Z", 0, cpu_ret_z},                      // 0xC8
-    {"RET", 0, nullptr},                          // 0xC9
+    {"RET", 0, cpu_ret},                          // 0xC9
     {"JP Z, nn", 2, cpu_jp_z},                    // 0xCA
     {"PREFIX CB", 1, nullptr},                    // 0xCB
     {"CALL Z, nn", 2, cpu_call_z},                // 0xCC
-    {"CALL nn", 2, nullptr},                      // 0xCD
-    {"ADC A, n", 1, nullptr},                     // 0xCE
+    {"CALL nn", 2, cpu_call_nn},                  // 0xCD
+    {"ADC A, n", 1, cpu_adc_n},                   // 0xCE
     {"RST 08H", 0, cpu_rst_08},                   // 0xCF
     {"RET NC", 0, cpu_ret_nc},                    // 0xD0
     {"POP DE", 0, cpu_pop_de},                    // 0xD1
@@ -216,7 +216,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"ILLEGAL", 0, nullptr},                      // 0xD3
     {"CALL NC, nn", 2, cpu_call_nc},              // 0xD4
     {"PUSH DE", 0, cpu_push_de},                  // 0xD5
-    {"SUB n", 1, nullptr},                        // 0xD6
+    {"SUB n", 1, cpu_sub_n},                      // 0xD6
     {"RST 10H", 0, cpu_rst_10},                   // 0xD7
     {"RET C", 0, cpu_ret_c},                      // 0xD8
     {"RETI", 0, nullptr},                         // 0xD9
@@ -224,11 +224,11 @@ const struct gb_cpu_instruction instructions[256] = {
     {"ILLEGAL", 0, nullptr},                      // 0xDB
     {"CALL C, nn", 2, cpu_call_c},                // 0xDC
     {"ILLEGAL", 0, nullptr},                      // 0xDD
-    {"SBC A, n", 1, nullptr},                     // 0xDE
+    {"SBC A, n", 1, cpu_sbc_a_n},                 // 0xDE
     {"RST 18H", 0, cpu_rst_18},                   // 0xDF
-    {"LDH (n), A", 1, nullptr},                   // 0xE0
+    {"LDH (n), A", 1, cpu_ldh_n_a},               // 0xE0
     {"POP HL", 0, cpu_pop_hl},                    // 0xE1
-    {"LD (C), A", 0, nullptr},                    // 0xE2
+    {"LDH (C), A", 0, cpu_ldh_c_a},               // 0xE2
     {"ILLEGAL", 0, nullptr},                      // 0xE3
     {"ILLEGAL", 0, nullptr},                      // 0xE4
     {"PUSH HL", 0, cpu_push_hl},                  // 0xE5
