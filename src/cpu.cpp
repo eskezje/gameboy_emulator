@@ -1424,7 +1424,20 @@ void cpu_ret_c()    // 0xD8
   cpu_routine_return_conditional(GET_FLAG_CARRY);
 }
 
-void cpu_jp_c()    // 0xCA
+void cpu_reti()            // 0xD9
+{
+  core_advance_cpu_clocks(4);
+  uint8_t lsb = memory_bus_read(cpu_registers.sp++);
+  core_advance_cpu_clocks(4);
+  uint8_t msb = memory_bus_read(cpu_registers.sp++);
+  cpu_registers.pc = (uint16_t)(lsb | (msb << 8));
+  core_advance_cpu_clocks(4);
+  interrupt_master_enable = true;
+  core_advance_cpu_clocks(4);
+}
+
+
+void cpu_jp_c()    // 0xDA
 {
   cpu_routine_jump_conditional(GET_FLAG_CARRY);
 }
@@ -1558,6 +1571,13 @@ void cpu_ldh_a_c()         // 0xF2
   core_advance_cpu_clocks(4);
 }
 
+void cpu_di()              // 0xF3
+{
+  core_advance_cpu_clocks(4);
+  interrupt_master_enable = false;
+  interrupt_enable_ime_delay = 0;
+}
+
 void cpu_push_af()  // 0xF5
 {
   cpu_routine_push_16(cpu_registers.a, cpu_registers.f);
@@ -1606,6 +1626,12 @@ void cpu_ld_a_nn()         // 0xFA
   uint16_t nn = (uint16_t)(nn_lsb | (nn_msb << 8));
   core_advance_cpu_clocks(4);
   cpu_registers.a = memory_bus_read(nn);
+}
+
+void cpu_ei()              // 0xFB
+{
+  core_advance_cpu_clocks(4);
+  interrupt_enable_ime_delay = 1;
 }
 
 void cpu_cp_n()            // 0xFE

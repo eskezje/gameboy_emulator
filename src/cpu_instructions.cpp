@@ -219,7 +219,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"SUB n", 1, cpu_sub_n},                      // 0xD6
     {"RST 10H", 0, cpu_rst_10},                   // 0xD7
     {"RET C", 0, cpu_ret_c},                      // 0xD8
-    {"RETI", 0, nullptr},                         // 0xD9
+    {"RETI", 0, cpu_reti},                        // 0xD9
     {"JP C, nn", 2, cpu_jp_c},                    // 0xDA
     {"ILLEGAL", 0, nullptr},                      // 0xDB
     {"CALL C, nn", 2, cpu_call_c},                // 0xDC
@@ -245,7 +245,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LDH A, (n)", 1, cpu_ldh_a_n},               // 0xF0
     {"POP AF", 0, cpu_pop_af},                    // 0xF1
     {"LDH A, (C)", 0, cpu_ldh_a_c},               // 0xF2
-    {"DI", 0, nullptr},                           // 0xF3
+    {"DI", 0, cpu_di},                            // 0xF3
     {"ILLEGAL", 0, nullptr},                      // 0xF4
     {"PUSH AF", 0, cpu_push_af},                  // 0xF5
     {"OR n", 1, cpu_or_n},                        // 0xF6
@@ -253,7 +253,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD HL, SP+e", 1, cpu_ld_hl_sp_e},           // 0xF8
     {"LD SP, HL", 0, cpu_ld_sp_hl},               // 0xF9
     {"LD A, (nn)", 2, cpu_ld_a_nn},               // 0xFA
-    {"EI", 0, nullptr},                           // 0xFB
+    {"EI", 0, cpu_ei},                            // 0xFB
     {"ILLEGAL", 0, nullptr},                      // 0xFC
     {"ILLEGAL", 0, nullptr},                      // 0xFD
     {"CP n", 1, cpu_cp_n},                        // 0xFE
