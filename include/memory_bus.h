@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdint>
 #include <stdint.h>
 
 #define CLEAR_BIT(number, bit) ((number) &= ~(1U << (bit)))

@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #include <stdint.h>
 
 struct gb_cpu_instruction {

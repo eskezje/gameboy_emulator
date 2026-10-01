@@ -285,3 +285,14 @@
   core_advance_cpu_clocks(4);                                                         \
 }
 
+
+#define cpu_routine_rrc_8(reg8)                                                       \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  SET_FLAG_SUBTRACT(0);                                                               \
+  SET_FLAG_HALF_CARRY(0);                                                             \
+  SET_FLAG_CARRY((reg8 & 0x1) != 0);                                                  \
+  reg8 = (reg8 >> 1) | (GET_FLAG_CARRY << 7);                                         \
+  SET_FLAG_ZERO(!reg8);                                                               \
+  core_advance_cpu_clocks(4);                                                         \
+}

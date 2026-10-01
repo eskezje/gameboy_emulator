@@ -269,14 +269,14 @@ const gb_cpu_pre_cb_instruction cb_instructions[256] = {
     {"RLC L", cpu_cb_rlc_l},   // 0x05
     {"RLC (HL)", cpu_cb_rlc_hl},     // 0x06
     {"RLC A", cpu_cb_rlc_a},   // 0x07
-    {"RRC B", nullptr},        // 0x08
-    {"RRC C", nullptr},        // 0x09
-    {"RRC D", nullptr},        // 0x0A
-    {"RRC E", nullptr},        // 0x0B
-    {"RRC H", nullptr},        // 0x0C
-    {"RRC L", nullptr},        // 0x0D
-    {"RRC (HL)", nullptr},     // 0x0E
-    {"RRC A", nullptr},        // 0x0F
+    {"RRC B", cpu_cb_rrc_b},        // 0x08
+    {"RRC C", cpu_cb_rrc_c},        // 0x09
+    {"RRC D", cpu_cb_rrc_d},        // 0x0A
+    {"RRC E", cpu_cb_rrc_e},        // 0x0B
+    {"RRC H", cpu_cb_rrc_h},        // 0x0C
+    {"RRC L", cpu_cb_rrc_l},        // 0x0D
+    {"RRC (HL)", cpu_cb_rrc_hl},     // 0x0E
+    {"RRC A", cpu_cb_rrc_a},        // 0x0F
     {"RL B", nullptr},         // 0x10
     {"RL C", nullptr},         // 0x11
     {"RL D", nullptr},         // 0x12

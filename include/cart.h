@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdint>
 #include <stdint.h>
 
 const int MAX_CART_SIZE = 1024 * 1024;

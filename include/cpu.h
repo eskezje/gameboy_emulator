@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #include <stdint.h>
 
 #define SET_FLAG_ZERO(value)              cpu_registers.f = (cpu_registers.f & ~(1UL << 7)) | ((value) << 7);
@@ -325,5 +324,13 @@ void cpu_cb_rlc_d();    // 0x02
 void cpu_cb_rlc_e();    // 0x03
 void cpu_cb_rlc_h();    // 0x04
 void cpu_cb_rlc_l();    // 0x05
-void cpu_cb_rlc_hl();    // 0x06
+void cpu_cb_rlc_hl();   // 0x06
 void cpu_cb_rlc_a();    // 0x07
+void cpu_cb_rrc_b();    // 0x08
+void cpu_cb_rrc_c();    // 0x09
+void cpu_cb_rrc_d();    // 0x0A
+void cpu_cb_rrc_e();    // 0x0B
+void cpu_cb_rrc_h();    // 0x0C
+void cpu_cb_rrc_l();    // 0x0D
+void cpu_cb_rrc_hl();   // 0x0E
+void cpu_cb_rrc_a();    // 0x0F

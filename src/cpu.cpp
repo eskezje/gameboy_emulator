@@ -5,7 +5,7 @@
 #include <cpu.h>
 #include <cpu_routines.h>
 #include <cpu_instructions.h>
-#include <cstdint>
+#include <stdint.h>
 #include <stdio.h>
 #include <emulator_core.h>
 
@@ -1704,3 +1704,47 @@ void cpu_cb_rlc_a()    // 0x07
   cpu_routine_rlc_8(cpu_registers.a);
 }
 
+
+void cpu_cb_rrc_b()    // 0x08
+{
+  cpu_routine_rrc_8(cpu_registers.b);
+}
+
+void cpu_cb_rrc_c()    // 0x09
+{
+  cpu_routine_rrc_8(cpu_registers.c);
+}
+
+void cpu_cb_rrc_d()    // 0x0a
+{
+  cpu_routine_rrc_8(cpu_registers.d);
+}
+
+void cpu_cb_rrc_e()    // 0x0b
+{
+  cpu_routine_rrc_8(cpu_registers.e);
+}
+
+void cpu_cb_rrc_h()    // 0x0c
+{
+  cpu_routine_rrc_8(cpu_registers.h);
+}
+
+void cpu_cb_rrc_l()    // 0x0d
+{
+  cpu_routine_rrc_8(cpu_registers.l);
+}
+
+void cpu_cb_rrc_hl()    // 0x0e
+{
+  core_advance_cpu_clocks(4);
+  uint8_t data = memory_bus_read(cpu_registers.hl);
+  cpu_routine_rrc_8(data);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
+}
+
+void cpu_cb_rrc_a()    // 0x0f
+{
+  cpu_routine_rrc_8(cpu_registers.a);
+}

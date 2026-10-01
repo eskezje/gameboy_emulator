@@ -1,6 +1,5 @@
 #pragma once 
 
-#include <cstdint>
 #include <stdint.h>
 
 const uint8_t INTERRUPT_FLAG_V_BLANK = (1 << 0);
