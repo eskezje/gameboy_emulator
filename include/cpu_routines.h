@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+#include <new>
 #include <stdint.h>
 #include <emulator_core.h>
 #include <memory_bus.h>
@@ -295,4 +297,29 @@
   reg8 = (reg8 >> 1) | (GET_FLAG_CARRY << 7);                                         \
   SET_FLAG_ZERO(!reg8);                                                               \
   core_advance_cpu_clocks(4);                                                         \
+}
+
+#define cpu_routine_rl_8(reg8)                                                        \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t old_carry = GET_FLAG_CARRY;                                                 \
+  uint8_t new_carry = ((reg8 & 0b10000000) >> 7);                                     \
+  reg8 = (reg8 << 1) | old_carry;                                                     \
+  SET_FLAG_CARRY(new_carry);                                                          \
+  SET_FLAG_HALF_CARRY(0);                                                             \
+  SET_FLAG_SUBTRACT(0);                                                               \
+  SET_FLAG_ZERO(!reg8);                                                               \
+}
+
+
+#define cpu_routine_rr_8(reg8)                                                        \
+{                                                                                     \
+  core_advance_cpu_clocks(4);                                                         \
+  uint8_t old_carry = GET_FLAG_CARRY;                                                 \
+  uint8_t new_carry = reg8 & 0x1;                                                     \
+  reg8 = (reg8 >> 1) | (old_carry<< 7);                                               \
+  SET_FLAG_CARRY(new_carry);                                                          \
+  SET_FLAG_HALF_CARRY(0);                                                             \
+  SET_FLAG_SUBTRACT(0);                                                               \
+  SET_FLAG_ZERO(!reg8);                                                               \
 }
