@@ -1923,8 +1923,53 @@ void cpu_cb_sra_hl()    // 0x2E
   core_advance_cpu_clocks(4);
   memory_bus_write(cpu_registers.hl, data);
 }
+
 void cpu_cb_sra_a()     // 0x2F
 {
   cpu_routine_sra_8(cpu_registers.a);
+}
+
+void cpu_cb_swap_b()    // 0x30
+{
+  cpu_routine_swap_8(cpu_registers.b);
+}
+
+void cpu_cb_swap_c()    // 0x31
+{
+  cpu_routine_swap_8(cpu_registers.c);
+}
+
+void cpu_cb_swap_d()    // 0x32
+{
+  cpu_routine_swap_8(cpu_registers.d);
+}
+
+void cpu_cb_swap_e()    // 0x33
+{
+  cpu_routine_swap_8(cpu_registers.e);
+}
+
+void cpu_cb_swap_h()    // 0x34
+{
+  cpu_routine_swap_8(cpu_registers.h);
+}
+
+void cpu_cb_swap_l()    // 0x35
+{
+  cpu_routine_swap_8(cpu_registers.l);
+}
+
+void cpu_cb_swap_hl()   // 0x36
+{
+  core_advance_cpu_clocks(4);
+  uint8_t data = memory_bus_read(cpu_registers.hl);
+  cpu_routine_swap_8(data);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
+}
+
+void cpu_cb_swap_a()    // 0x37
+{
+  cpu_routine_swap_8(cpu_registers.a);
 }
 

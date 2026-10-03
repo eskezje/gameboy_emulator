@@ -366,3 +366,11 @@ void cpu_cb_sra_h();     // 0x2C
 void cpu_cb_sra_l();     // 0x2D
 void cpu_cb_sra_hl();    // 0x2E
 void cpu_cb_sra_a();     // 0x2F
+void cpu_cb_swap_b();    // 0x30
+void cpu_cb_swap_c();    // 0x31
+void cpu_cb_swap_d();    // 0x32
+void cpu_cb_swap_e();    // 0x33
+void cpu_cb_swap_h();    // 0x34
+void cpu_cb_swap_l();    // 0x35
+void cpu_cb_swap_hl();   // 0x36
+void cpu_cb_swap_a();    // 0x37
