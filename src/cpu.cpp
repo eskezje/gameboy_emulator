@@ -1887,7 +1887,7 @@ void cpu_cb_sla_a()     // 0x27
 
 void cpu_cb_sra_b()     // 0x28
 {
-  cpu_routine_sla_8(cpu_registers.b);
+  cpu_routine_sra_8(cpu_registers.b);
 }
 
 void cpu_cb_sra_c()     // 0x29
