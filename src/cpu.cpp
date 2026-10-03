@@ -2607,6 +2607,8 @@ void cpu_cb_res0_hl()    // 0x86
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 0);
   core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
+  core_advance_cpu_clocks(4);
 }
 
 void cpu_cb_res0_a()     // 0x87
@@ -2657,6 +2659,8 @@ void cpu_cb_res1_hl()    // 0x8E
   core_advance_cpu_clocks(4);
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 1);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
   core_advance_cpu_clocks(4);
 }
 
@@ -2709,6 +2713,8 @@ void cpu_cb_res2_hl()    // 0x96
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 2);
   core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
+  core_advance_cpu_clocks(4);
 }
 
 void cpu_cb_res2_a()     // 0x97
@@ -2759,6 +2765,8 @@ void cpu_cb_res3_hl()    // 0x9E
   core_advance_cpu_clocks(4);
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 3);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
   core_advance_cpu_clocks(4);
 }
 
@@ -2811,6 +2819,8 @@ void cpu_cb_res4_hl()    // 0xA6
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 4);
   core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
+  core_advance_cpu_clocks(4);
 }
 
 void cpu_cb_res4_a()     // 0xA7
@@ -2861,6 +2871,8 @@ void cpu_cb_res5_hl()    // 0xAE
   core_advance_cpu_clocks(4);
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 5);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
   core_advance_cpu_clocks(4);
 }
 
@@ -2913,6 +2925,8 @@ void cpu_cb_res6_hl()    // 0xB6
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 6);
   core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
+  core_advance_cpu_clocks(4);
 }
 
 void cpu_cb_res6_a()     // 0xB7
@@ -2963,6 +2977,8 @@ void cpu_cb_res7_hl()    // 0xBE
   core_advance_cpu_clocks(4);
   uint8_t data = memory_bus_read(cpu_registers.hl);
   CLEAR_BIT(data, 7);
+  core_advance_cpu_clocks(4);
+  memory_bus_write(cpu_registers.hl, data);
   core_advance_cpu_clocks(4);
 }
 
