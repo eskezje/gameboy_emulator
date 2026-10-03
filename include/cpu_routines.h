@@ -370,3 +370,4 @@
   SET_FLAG_SUBTRACT(0);                                                              \
   SET_FLAG_ZERO(!reg8);                                                              \
 }
+
