@@ -317,14 +317,14 @@ const gb_cpu_pre_cb_instruction cb_instructions[256] = {
     {"SWAP L", cpu_cb_swap_l},       // 0x35
     {"SWAP (HL)", cpu_cb_swap_hl},   // 0x36
     {"SWAP A", cpu_cb_swap_a},       // 0x37
-    {"SRL B", nullptr},              // 0x38
-    {"SRL C", nullptr},              // 0x39
-    {"SRL D", nullptr},              // 0x3A
-    {"SRL E", nullptr},              // 0x3B
-    {"SRL H", nullptr},              // 0x3C
-    {"SRL L", nullptr},              // 0x3D
-    {"SRL (HL)", nullptr},           // 0x3E
-    {"SRL A", nullptr},              // 0x3F
+    {"SRL B", cpu_cb_srl_b},         // 0x38
+    {"SRL C", cpu_cb_srl_c},         // 0x39
+    {"SRL D", cpu_cb_srl_d},         // 0x3A
+    {"SRL E", cpu_cb_srl_e},         // 0x3B
+    {"SRL H", cpu_cb_srl_h},         // 0x3C
+    {"SRL L", cpu_cb_srl_l},         // 0x3D
+    {"SRL (HL)", cpu_cb_srl_hl},     // 0x3E
+    {"SRL A", cpu_cb_srl_a},         // 0x3F
     {"BIT 0, B", nullptr},           // 0x40
     {"BIT 0, C", nullptr},           // 0x41
     {"BIT 0, D", nullptr},           // 0x42

@@ -358,3 +358,15 @@
   SET_FLAG_CARRY(0);                                                                  \
   SET_FLAG_ZERO(!reg8);                                                               \
 }
+
+
+#define cpu_routine_srl_8(reg8)                                                      \
+{                                                                                    \
+  core_advance_cpu_clocks(4);                                                        \
+  uint8_t b0 = reg8 & 0x1;                                                           \
+  SET_FLAG_CARRY(b0);                                                                \
+  reg8 = reg8 >> 1;                                                                  \
+  SET_FLAG_HALF_CARRY(0);                                                            \
+  SET_FLAG_SUBTRACT(0);                                                              \
+  SET_FLAG_ZERO(!reg8);                                                              \
+}
