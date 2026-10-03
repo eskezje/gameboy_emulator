@@ -68,6 +68,8 @@ void cpu_tick();
 void cpu_fetch();
 bool cpu_execute();
 
+void cpu_dump_registers(const gb_cpu_registers& registers);
+
 // CPU Operations
 void cpu_noop();            // 0x00
 void cpu_ld_bc_nn();        // 0x01
