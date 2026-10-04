@@ -35,7 +35,7 @@ const cart_type_info cart_type_data[256] =
   {CART_TYPE::MBC1,      true,  true,   false,  false,  false, "MBC1 + RAM + Battery"},                    // 0x03
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x04
   {CART_TYPE::MBC2,      false, false,  false,  false,  false, "MBC2"},                                    // 0x05
-  {CART_TYPE::MBC2,      true,  true,   false,  false,  false, "MBC2 + RAM + Battery"},                    // 0x06
+  {CART_TYPE::MBC2,      true,  true,   false,  false,  false, "MBC2 + Battery"},                          // 0x06
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x07
   {CART_TYPE::NO_MBC,    true,  false,  false,  false,  false, "ROM + RAM"},                               // 0x08
   {CART_TYPE::NO_MBC,    true,  true,   false,  false,  false, "ROM + RAM + Battery"},                     // 0x09
@@ -61,9 +61,9 @@ const cart_type_info cart_type_data[256] =
   {CART_TYPE::MBC5,      true,  false,  false,  true,   false, "MBC5 + RAM + Rumble"},                     // 0x1D
   {CART_TYPE::MBC5,      true,  true,   false,  true,   false, "MBC5 + RAM + Battery+ Rumble"},            // 0x1E
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x1F
-  {CART_TYPE::MBC6,      true,  true,   false,  false,  false, "MBC6 + RAM + Battery"},                    // 0x20
+  {CART_TYPE::MBC6,      false, false,  false,  false,  false, "MBC6"},                                    // 0x20
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x21
-  {CART_TYPE::MBC7,      true,  true,   false,  false,  true,  "MBC7 + RAM + Battery + Accelerometer"},    // 0x22
+  {CART_TYPE::MBC7,      true,  true,   false,  true,  true,  "MBC7 + Sensor + Rumble + RAM + Battery"},  // 0x22
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x23
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x24
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0x25
@@ -282,7 +282,7 @@ const cart_type_info cart_type_data[256] =
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0xFA
   {CART_TYPE::UNUSED,    false, false,  false,  false,  false, "Unused"},                                  // 0xFB
   {CART_TYPE::POCKET_CAMERA,    false, false,  false,  false,  false, "Pocket Camera"},                    // 0xFC
-  {CART_TYPE::BANDAI_TAMA5,     false, false,  false,  false,  false, "BANDAI TAMA5"},                     // 0xFC
+  {CART_TYPE::BANDAI_TAMA5,     false, false,  false,  false,  false, "BANDAI TAMA5"},                     // 0xFD
   {CART_TYPE::HUC3,      false, false,  false,  false,  false, "HuC3"},                                    // 0xFE
   {CART_TYPE::HUC1,      true, true,  false,  false,  false, "HuC1 + RAM + Battery"},                      // 0xFF
 };
