@@ -1333,7 +1333,7 @@ void cpu_jp_nn()    // 0xC3
   uint32_t temp = memory_bus_read(cpu_registers.pc++);
   cpu_registers.pc &= 0xFFFF;
   core_advance_cpu_clocks(4);
-  temp |= ((uint32_t)memory_bus_read(cpu_registers.pc)) << 8;
+  temp |= ((uint32_t)memory_bus_read(cpu_registers.pc++)) << 8;
   cpu_registers.pc &= 0xFFFF;
   core_advance_cpu_clocks(4);
   cpu_registers.pc = temp;
