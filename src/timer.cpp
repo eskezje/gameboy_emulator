@@ -5,7 +5,7 @@
 
 extern uint8_t cpu_halt_count;
 
-const uint16_t timer_tac_edge_bits[4] = {0, 3, 5, 7};
+const uint16_t timer_tac_edge_bits[4] = {9, 3, 5, 7};
 
 gb_timer_register* timer_registers = (gb_timer_register*)(memory + 0xFF04);
 

@@ -88,7 +88,7 @@ uint8_t memory_bus_read(const uint16_t addr)
     return memory[addr - 0x2000];
   }
 
-  if (addr >= 0xFE00 && addr <= 0xFE0F) {   // Object attribute memory (40 sprites)
+  if (addr >= 0xFE00 && addr <= 0xFE9F) {   // Object attribute memory (40 sprites)
     // TODO: If PPU mode == 2 return 0xFF
     return memory[addr];
   }
@@ -147,7 +147,7 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
 
   if (addr >= 0xA000 && addr <= 0xBFFF) {   // External RAM
     if (cart_info.type == CART_TYPE::NO_MBC) {
-      eram[addr - 0x2000] = value;
+      eram[addr - 0xA000] = value;
     }
     else if (cart_info.type == CART_TYPE::MBC1) {
       const uint16_t RAM_BANK_SIZE = 0x2000;    // 8k per ROM bank
@@ -169,7 +169,7 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
     memory[addr - 0x2000] = value;
   }
 
-  if (addr >= 0xFE00 && addr <= 0xFE0F) {   // Object attribute memory (40 sprites)
+  if (addr >= 0xFE00 && addr <= 0xFE9F) {   // Object attribute memory (40 sprites)
     // TODO: If PPU mode == 2 or mode == 3 then the CPU cannot access OAM
     memory[addr] = value;
   }
