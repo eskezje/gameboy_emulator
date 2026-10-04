@@ -42,13 +42,12 @@ void cart_print_info() {
          cartridge_header->entry_point[1], cartridge_header->entry_point[2],
          cartridge_header->entry_point[3]);
   printf("Title: %s\n", cartridge_header->title);
-  printf("CBG flag: %.2X\n", cartridge_header->cgb_flag);
+  printf("CGB flag: %.2X\n", cartridge_header->cgb_flag);
   printf("New Licensee Code: %.2X%.2X\n",
          cartridge_header->new_licensee_code[0],
          cartridge_header->new_licensee_code[1]);
-  printf("SBG flag: %.2X\n", cartridge_header->sbg_flag);
+  printf("SGB flag: %.2X\n", cartridge_header->sbg_flag);
   printf("Type %.2X (%s)\n", cartridge_header->cartridge_type, cart_type_data[cartridge_header->cartridge_type].readable_name);
-  printf("Cartridge Type: %.2X\n", cartridge_header->cgb_flag);
   printf("ROM size: %.2X\n", cartridge_header->rom_size);
   printf("RAM size: %.2X\n", cartridge_header->ram_size);
   printf("Destination Code: %.2X\n", cartridge_header->destination_code);

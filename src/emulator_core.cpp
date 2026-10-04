@@ -5,7 +5,7 @@
 #include <timer.h>
 #include <interrupts.h>
 
-const char *tetris_path = "../roms/tetris.gb";
+const char *tetris_path = "../roms/cpu_instrs/individual/02-interrupts.gb";
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
 
@@ -46,3 +46,4 @@ void core_advance_cpu_clocks(uint8_t clocks) {
     }
   }
 }
+

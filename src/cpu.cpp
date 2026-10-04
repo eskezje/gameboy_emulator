@@ -16,7 +16,7 @@ uint32_t cpu_instructions_counter = 0;
 cpu_execute_op cpu_current_instruction_execute = nullptr;
 uint8_t cpu_halt_count = 0; // 0 == not halted, 1 == halt instruction, 2 == stop instruction
 bool cpu_halt_bug =false;
-bool cpu_debug_instructions = true;
+bool cpu_debug_instructions = false;
 
 extern bool core_quit_requested;
 
