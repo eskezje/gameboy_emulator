@@ -70,9 +70,14 @@ uint8_t memory_bus_read(const uint16_t addr)
       return eram[eram_address];
     }
     else if (cart_info.type == CART_TYPE::MBC1) {
-      const uint16_t bank_offset = ram_bank_number * 0x2000;
-      const uint16_t eram_address = (addr - 0xA000) + bank_offset;
-      return eram[eram_address];
+      if (ram_enable) {
+        const uint16_t bank_offset = ram_bank_number * 0x2000;
+        const uint16_t eram_address = (addr - 0xA000) + bank_offset;
+        return eram[eram_address];
+      }
+      else {
+        return 0xFF;
+      }
     }
   }
 
@@ -150,10 +155,15 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
       eram[addr - 0xA000] = value;
     }
     else if (cart_info.type == CART_TYPE::MBC1) {
-      const uint16_t RAM_BANK_SIZE = 0x2000;    // 8k per ROM bank
-      const uint32_t offset = RAM_BANK_SIZE * ram_bank_number;
-      const uint16_t eram_address = offset + (addr - 0xA000);
-      eram[eram_address] = value;
+      if (ram_enable) {
+        const uint16_t RAM_BANK_SIZE = 0x2000;    // 8k per ROM bank
+        const uint32_t offset = RAM_BANK_SIZE * ram_bank_number;
+        const uint16_t eram_address = offset + (addr - 0xA000);
+        eram[eram_address] = value;
+      }
+      else {
+        // do nothing
+      }
     }
   }
 
