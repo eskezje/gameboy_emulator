@@ -22,7 +22,7 @@
 //
 // 0xE000-0xFDFF is Echo RAM (mirror of C000–DDFF) - Nintendo says use of this area is prohibited.
 //
-// 0xFE00-0xFE0F is Object attribute memory (OAM)
+// 0xFE00-0xFE9F is Object attribute memory (OAM)
 //
 // 0xFEA0-0xFEFF is Not Useable - Nintendo says use of this area is prohibited.
 //
@@ -118,7 +118,7 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
   const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
   if (cart_info.type == CART_TYPE::MBC1) {
     if (addr >= 0x0000 && addr <= 0x1FFF) {   // RAM enable
-      ram_enable = (value & 0xF0) == 0x0A;
+      ram_enable = (value & 0x0F) == 0x0A;
     }
     if (addr >= 0x2000 && addr <= 0x3FFF) {
       rom_bank_number = value & 0b00011111; // this is a 5 bit register
@@ -128,7 +128,7 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
     }
     if (addr >= 0x4000 && addr <= 0x5FFF) {
       if (rom_ram_mode_select) {
-        rom_bank_number = value & 0b00000011; // this is a 2 bit register
+        ram_bank_number = value & 0b00000011; // this is a 2 bit register
       }
       else {
         rom_bank_number = (rom_bank_number & 0b00011111) | ((value & 0b00000011) << 5);
