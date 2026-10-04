@@ -1,10 +1,11 @@
-#include "interrupts.h"
-#include "timer.h"
+#include <cart.h>
+#include <cart_type.h>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <interrupts.h>
 #include <memory_bus.h>
-#include <cart.h>
+#include <timer.h>
 
 // https://gbdev.io/pandocs/Memory_Map.html
 // 0x0000-0x3FFF is 16 KiB ROM bank 00 - From cartridge, usually a fixed bank
@@ -34,14 +35,29 @@
 uint8_t memory[MEMORY_SIZE];
 uint8_t eram[ERAM_SIZE];
 
+uint16_t rom_bank_number = 0;
+uint16_t ram_bank_number = 0;
+bool ram_enable = false;
+bool rom_ram_mode_select = false;
+
 uint8_t memory_bus_read(const uint16_t addr)
 {
   if (addr >= 0x0000 && addr <= 0x3FFF) {   // Read from ROM bank 00
     return cartridge_data[addr];
   }
 
+  const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
+
   if (addr >= 0x4000 && addr <= 0x7FFF) {   // Read from ROM bank 01-NN
-    return cartridge_data[addr];    // For no MBC cartridges
+    if (cart_info.type == CART_TYPE::NO_MBC) {
+      return cartridge_data[addr];    // For no MBC cartridges
+    }
+    else if (cart_info.type == CART_TYPE::MBC1) {
+      const uint16_t ROM_BANK_SIZE = 0x4000; // 16k per ROM bank
+      uint8_t rom_bank = rom_bank_number > 0 ? rom_bank_number : 1;
+      const uint32_t offset = ROM_BANK_SIZE * (rom_bank - 1);
+      return cartridge_data[offset + addr];
+    }
   }
 
   if (addr >= 0x8000 && addr <= 0x9FFF) {   // VRAM
@@ -49,8 +65,15 @@ uint8_t memory_bus_read(const uint16_t addr)
   }
 
   if (addr >= 0xA000 && addr <= 0xBFFF) {   // External RAM
-    const uint16_t eram_address = (addr - 0xA000);
-    return eram[eram_address];
+    if (cart_info.type == CART_TYPE::NO_MBC) {
+      const uint16_t eram_address = (addr - 0xA000);
+      return eram[eram_address];
+    }
+    else if (cart_info.type == CART_TYPE::MBC1) {
+      const uint16_t bank_offset = ram_bank_number * 0x2000;
+      const uint16_t eram_address = (addr - 0xA000) + bank_offset;
+      return eram[eram_address];
+    }
   }
 
   if (addr >= 0xC000 && addr <= 0xCFFF) {   // Work RAM 1
@@ -92,14 +115,46 @@ uint8_t memory_bus_read(const uint16_t addr)
 
 void memory_bus_write(const uint16_t addr, const uint8_t value)
 {
+  const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
+  if (cart_info.type == CART_TYPE::MBC1) {
+    if (addr >= 0x0000 && addr <= 0x1FFF) {   // RAM enable
+      ram_enable = (value & 0xF0) == 0x0A;
+    }
+    if (addr >= 0x2000 && addr <= 0x3FFF) {
+      rom_bank_number = value & 0b00011111; // this is a 5 bit register
+      const uint32_t rom_size = 32 * (1 << cartridge_header->rom_size);
+      const uint8_t number_of_rom_banks = rom_size / 16;
+      rom_bank_number = rom_bank_number % number_of_rom_banks;
+    }
+    if (addr >= 0x4000 && addr <= 0x5FFF) {
+      if (rom_ram_mode_select) {
+        rom_bank_number = value & 0b00000011; // this is a 2 bit register
+      }
+      else {
+        rom_bank_number = (rom_bank_number & 0b00011111) | ((value & 0b00000011) << 5);
+      }
+    }
+    if (addr >= 0x6000 && addr <= 0x7FFF) {
+      rom_ram_mode_select = value & 1; // this is a 1 bit reigster
+    }
+  }
+
+
   if (addr >= 0x8000 && addr <= 0x9FFF) {   // VRAM
     // TODO: If PPU is in mode 3 the cpu cannot access VRAM
     memory[addr] = value;
   }
 
   if (addr >= 0xA000 && addr <= 0xBFFF) {   // External RAM
-    const uint16_t eram_address = (addr - 0xA000);
-    eram[eram_address] = value;
+    if (cart_info.type == CART_TYPE::NO_MBC) {
+      eram[addr - 0x2000] = value;
+    }
+    else if (cart_info.type == CART_TYPE::MBC1) {
+      const uint16_t RAM_BANK_SIZE = 0x2000;    // 8k per ROM bank
+      const uint32_t offset = RAM_BANK_SIZE * ram_bank_number;
+      const uint16_t eram_address = offset + (addr - 0xA000);
+      eram[eram_address] = value;
+    }
   }
 
   if (addr >= 0xC000 && addr <= 0xCFFF) {   // Work RAM 1
