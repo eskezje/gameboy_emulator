@@ -32,8 +32,8 @@ void cpu_reset() {
 
 void cpu_tick()
 {
-  if (cpu_halt_count == 0) {
-    cpu_fetch();
+  if (cpu_halt_count == 0) {  // cpu is not halted
+    cpu_fetch();              
     if (!cpu_execute()) {
       core_quit_requested = true;
       return;
@@ -42,7 +42,6 @@ void cpu_tick()
   }
   else {
     core_advance_cpu_clocks(4); // halted, waiting for an interrupt to trigger
-
   }
   if (cpu_instructions_counter > 10000 && cpu_debug_instructions) {
     cpu_debug_instructions = false;

@@ -2,6 +2,27 @@
 #include <cstdint>
 #include <timer.h>
 #include <memory_bus.h>
+/*
+We have DIV at 0xFF04 - the free-running clock/divider
+We have TIMA at 0xFF05 - the actual programmable timer counter
+We have TMA at 0xFF06 - value TIMA reloads from after overflow
+We have TAC at 0xFF07 - enables TIMA and chooses how fast it increments
+
+Lets say we have
+TIMA = 00
+TMA =  80
+TAC =  101
+then for TAC
+bit 2 == 1 -> timer enabled 
+bits 1:0 == 01 TIMA increments every 4 M-cycles
+TAC 00 -> every 256  M-cycles
+TAC 01 -> every 4    M-cycles
+TAC 10 -> every 16   M-cycles
+TAC 11 -> every 64   M-cycles
+
+and 1 -M-cycles = 4 T-cycles
+*/
+
 
 extern uint8_t cpu_halt_count;
 
@@ -86,10 +107,12 @@ void timer_on_div_write(const uint8_t value)
 
 void timer_tick_tima()
 {
-  if (timer_registers->timer_tima < 255) {
+  if (timer_registers->timer_tima != 0xFF) {
     timer_registers->timer_tima++;
   }
   else {    // TIMA overflow
+    // TODO: TIMA should remain 0x00 during the 4 T-cycles overflow delay 
+    // Reload TMA and request the interrupt when the delay is complete
     timer_registers->timer_tima = timer_registers->timer_tma;
     timer_interrupt_delay = 4;
   }

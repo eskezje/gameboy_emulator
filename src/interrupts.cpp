@@ -25,8 +25,11 @@ void interrupt_raise_flag(uint8_t value)
 
 void interrupt_jump_to(uint16_t addr)
 {
+  // save the high and low bits of the program counter
   const uint8_t pchi = (cpu_registers.pc & 0xFF00) >> 8;
   const uint8_t pclo = (cpu_registers.pc & 0x00FF);
+  // we save the program counter adresses onto the stack 
+  // so we can return here after handling the interrupt.  
   cpu_registers.sp--;
   core_advance_cpu_clocks(4);
   memory_bus_write(cpu_registers.sp, pchi);
@@ -34,6 +37,8 @@ void interrupt_jump_to(uint16_t addr)
   core_advance_cpu_clocks(4);
   memory_bus_write(cpu_registers.sp, pclo);
   core_advance_cpu_clocks(4);
+  // the next cpu fetch will then execute the instruction
+  // from the interrupt handlers address
   cpu_registers.pc = addr;
   core_advance_cpu_clocks(4);
   interrupt_master_enable = false;
@@ -44,9 +49,11 @@ void interrupt_service_routine()
 {
   const uint8_t interrupt_enable = memory[ADDR_IO_IE];
   const uint8_t interrupt_flag = memory[ADDR_IO_IF];
+  // checking for an interrupt pair, meaning it is both requested and enabled
   const bool interrupt_pending = ((interrupt_enable & interrupt_flag) & 0x1F) != 0;
 
   if (interrupt_pending) {
+    // wake from halt if needed
     if (cpu_halt_count == 1) {
       core_advance_cpu_clocks(4);
       cpu_halt_count = 0;
