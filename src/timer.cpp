@@ -44,10 +44,12 @@ void timer_init()
 
 void timer_check_clock_edges(const uint16_t prev_sysclk)
 {
+  // save the current timer divider as we will update it
   const uint8_t div_prev = timer_registers->timer_div;
+  // we also save the 4th bit to be used for checking the falling edge
   const bool div_bit_4_prev = (timer_registers->timer_div >> 4) & 1;
 
-  // expose upper 8 bits
+  // expose upper 8 bits, since timer_div is the upper 8 bits of timer_internal_sysclk
   timer_registers->timer_div = timer_internal_sysclk >> 8;
 
   const bool div_bit_4_now = (timer_registers->timer_div >> 4) & 1;

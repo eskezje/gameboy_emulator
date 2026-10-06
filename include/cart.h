@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-const int MAX_CART_SIZE = 1024 * 1024;
+const int MAX_CART_SIZE = 8 * 1024 * 1024;
 extern uint8_t cartridge_data[MAX_CART_SIZE];
 extern bool cartridge_loaded;
 
