@@ -86,6 +86,7 @@ void timer_advance_clocks(const uint8_t cycles)
     for (uint8_t c = 0; c< cycles; c++) {
       timer_interrupt_delay--;
       if (timer_interrupt_delay == 0) {
+        timer_registers->timer_tima = timer_registers->timer_tma;
         interrupt_raise_flag(INTERRUPT_FLAG_TIMER);
         break;
       }
@@ -111,9 +112,7 @@ void timer_tick_tima()
     timer_registers->timer_tima++;
   }
   else {    // TIMA overflow
-    // TODO: TIMA should remain 0x00 during the 4 T-cycles overflow delay 
-    // Reload TMA and request the interrupt when the delay is complete
-    timer_registers->timer_tima = timer_registers->timer_tma;
+    timer_registers->timer_tima = 0x00;
     timer_interrupt_delay = 4;
   }
 }
