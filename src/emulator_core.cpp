@@ -1,3 +1,4 @@
+#include <memory_bus.h>
 #include <cart.h>
 #include <cpu.h>
 #include <cstdint>
@@ -16,6 +17,9 @@ int core_init() {
     return -1;
   }
 
+  timer_init();
+  ppu_init();
+
   cart_print_info();
 
   return 0;
@@ -32,9 +36,13 @@ void core_run() {
 
 void core_shutdown() {}
 
+
+
 void core_advance_cpu_clocks(uint8_t clocks) {
   timer_advance_clocks(clocks);
-  ppu_advance_clocks(clocks);
+  if (CHECK_BIT(ppu_registers->lcdc, 7)) {
+    ppu_advance_clocks(clocks);
+  }
   core_clock_counter += clocks;
 
   if (interrupt_enable_ime_delay > 0) {
