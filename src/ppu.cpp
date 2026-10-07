@@ -83,4 +83,5 @@ void ppu_init()
     ppu_line_cycles = 0;
     ppu_registers->ly = 0;
     ppu_set_mode(0);
+    ppu_lcd_enabled = false;
 }
