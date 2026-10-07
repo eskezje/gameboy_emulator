@@ -209,6 +209,8 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
       uint8_t ppu_bits = memory[addr] & 0b00000111;
       uint8_t writable_bits = value & 0b01111000;
       memory[addr] = ppu_bits | writable_bits | 0b10000000;
+
+      ppu_update_stat_interrupt();
     }
     else if (addr == 0xFF45) {
       memory[addr] = value;
