@@ -21,7 +21,7 @@ add_executable(gameboy_emulator
     src/ppu.cpp
 )
 
-target_include_directories(gameboy_emulator PRIVATE
+target_include_dsirectories(gameboy_emulator PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
