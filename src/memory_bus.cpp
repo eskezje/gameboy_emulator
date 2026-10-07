@@ -222,6 +222,10 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
 
       ppu_update_stat_interrupt();
     }
+    else if (addr == 0xFF44) {
+      // this is read only
+      return;
+    }
     else if (addr == 0xFF45) {
       memory[addr] = value;
       ppu_update_lyc_flag();
