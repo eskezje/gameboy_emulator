@@ -24,8 +24,9 @@ void ppu_advance_clocks(uint8_t cycles)
       ppu_line_cycles = 0;
       ppu_registers->ly = 0;
       ppu_set_mode(0);
-
       ppu_lcd_enabled = false;
+
+      ppu_update_lyc_flag();
       return;
   }
 
@@ -34,6 +35,7 @@ void ppu_advance_clocks(uint8_t cycles)
     ppu_line_cycles = 0;
     ppu_registers->ly = 0;
     ppu_set_mode(2);
+    ppu_update_lyc_flag();
 
     ppu_lcd_enabled = true;
   }
@@ -72,8 +74,19 @@ void ppu_advance_clocks(uint8_t cycles)
         // we start another visiable scanline
         ppu_set_mode(2);
       }
+      ppu_update_lyc_flag();
     }
 
+  }
+}
+
+void ppu_update_lyc_flag()
+{
+  if (ppu_registers->ly == ppu_registers->lyc) {
+    ppu_registers->stat |= 0b00000100;
+  }
+  else {
+    ppu_registers->stat &= 0b11111011;
   }
 }
 
@@ -84,4 +97,7 @@ void ppu_init()
     ppu_registers->ly = 0;
     ppu_set_mode(0);
     ppu_lcd_enabled = false;
+
+    ppu_update_lyc_flag();
 }
+

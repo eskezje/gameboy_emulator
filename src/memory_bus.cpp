@@ -1,3 +1,4 @@
+#include "ppu.h"
 #include <cart.h>
 #include <cart_type.h>
 #include <cstdint>
@@ -202,6 +203,16 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
     }
     else if (addr == 0xFF0F) {
       interrupt_flag_write(value);
+    }
+    else if (addr == 0xFF41)
+    {
+      uint8_t ppu_bits = memory[addr] & 0b00000111;
+      uint8_t writable_bits = value & 0b01111000;
+      memory[addr] = ppu_bits | writable_bits | 0b10000000;
+    }
+    else if (addr == 0xFF45) {
+      memory[addr] = value;
+      ppu_update_lyc_flag();
     }
     else if (addr == 0xFF46) {  // OAM DMA
       uint16_t source_addr = (value * 0x100);
