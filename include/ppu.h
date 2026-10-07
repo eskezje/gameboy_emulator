@@ -84,5 +84,6 @@ void ppu_update_lyc_flag();
 void ppu_init();
 
 extern gb_ppu_registers* ppu_registers;
+extern uint8_t ppu_framebuffer[144][160];
 
 void ppu_advance_clocks(uint8_t cycles);

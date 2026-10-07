@@ -10,6 +10,16 @@ bool ppu_lcd_enabled = false;
 
 bool ppu_stat_irq_line = false;
 
+// this is ppu_framebuffer[y][x]
+// y = 0..143
+// x = 0..159
+// value =
+// 0 = color 0
+// 1 = color 1
+// 2 = color 2
+// 3 = color 3
+uint8_t ppu_framebuffer[144][160];
+
 
 void ppu_update_stat_interrupt()
 {
