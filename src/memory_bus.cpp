@@ -1,4 +1,4 @@
-#include "ppu.h"
+#include <ppu.h>
 #include <cart.h>
 #include <cart_type.h>
 #include <cstdint>
@@ -48,6 +48,7 @@ uint8_t memory_bus_read(const uint16_t addr)
   }
 
   const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
+  uint8_t ppu_mode = ppu_registers->stat & 0b11;
 
   if (addr >= 0x4000 && addr <= 0x7FFF) {   // Read from ROM bank 01-NN
     if (cart_info.type == CART_TYPE::NO_MBC) {
@@ -62,6 +63,9 @@ uint8_t memory_bus_read(const uint16_t addr)
   }
 
   if (addr >= 0x8000 && addr <= 0x9FFF) {   // VRAM
+    if (ppu_mode == 3) {
+      return 0xFF;
+    }
     return memory[addr];
   }
 
@@ -95,12 +99,13 @@ uint8_t memory_bus_read(const uint16_t addr)
   }
 
   if (addr >= 0xFE00 && addr <= 0xFE9F) {   // Object attribute memory (40 sprites)
-    // TODO: If PPU mode == 2 return 0xFF
+    if (ppu_mode == 2 || ppu_mode == 3) {
+      return 0xFF;
+    }
     return memory[addr];
   }
 
   if (addr >= 0xFEA0 && addr <= 0xFEFF) {   // Unuseable memory area
-    // TODO: If PPU mode == 3 return 0xFF
     return 0x00;
   }
 
@@ -122,6 +127,7 @@ uint8_t memory_bus_read(const uint16_t addr)
 void memory_bus_write(const uint16_t addr, const uint8_t value)
 {
   const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
+  uint8_t ppu_mode = ppu_registers->stat & 0b11;
   if (cart_info.type == CART_TYPE::MBC1) {
     if (addr >= 0x0000 && addr <= 0x1FFF) {   // RAM enable
       ram_enable = (value & 0x0F) == 0x0A;
@@ -147,7 +153,9 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
 
 
   if (addr >= 0x8000 && addr <= 0x9FFF) {   // VRAM
-    // TODO: If PPU is in mode 3 the cpu cannot access VRAM
+    if (ppu_mode == 3) {
+      return;
+    }
     memory[addr] = value;
   }
 
@@ -181,7 +189,9 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
   }
 
   if (addr >= 0xFE00 && addr <= 0xFE9F) {   // Object attribute memory (40 sprites)
-    // TODO: If PPU mode == 2 or mode == 3 then the CPU cannot access OAM
+    if (ppu_mode == 2 || ppu_mode == 3) {
+      return;
+    }
     memory[addr] = value;
   }
 
