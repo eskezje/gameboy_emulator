@@ -81,6 +81,7 @@ struct gb_ppu_registers
 void ppu_update_stat_interrupt();
 void ppu_set_mode(uint8_t bits);
 void ppu_update_lyc_flag();
+void ppu_render_scanline();
 void ppu_init();
 
 extern gb_ppu_registers* ppu_registers;

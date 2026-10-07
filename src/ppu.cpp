@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <stdint.h>
 #include <ppu.h>
 #include <memory_bus.h>
@@ -60,6 +61,47 @@ void ppu_set_mode(uint8_t mode)
   ppu_update_stat_interrupt();
 }
 
+
+void ppu_render_scanline()
+{
+  uint16_t addr;
+  uint8_t ly = ppu_registers->ly;
+  uint8_t bg_y = ppu_registers->scy + ly;
+
+  uint8_t tile_y = bg_y/8;
+  uint8_t row_in_tile = bg_y % 8;
+  uint16_t tilemap_base = CHECK_BIT(ppu_registers->lcdc, 3) ? 0x9C00 : 0x9800;
+
+  bool tile_data_unsigned = CHECK_BIT(ppu_registers->lcdc, 4);
+
+  for (uint16_t x = 0; x < 160; x++) {
+    uint8_t bg_x = ppu_registers->scx + x;
+    uint8_t tile_x = bg_x / 8;
+    uint8_t pixel_x_inside_tile = bg_x % 8;
+    uint16_t address_map_entry = tilemap_base + 32*tile_y + tile_x;
+    uint8_t tile_number = memory[address_map_entry];
+    if (tile_data_unsigned) {
+      addr = 0x8000 + 16*tile_number;
+    }
+    else {
+      addr = 0x9000 + ((int8_t)tile_number)*16;
+    }
+    uint8_t low_byte  = memory[addr + row_in_tile * 2];
+    uint8_t high_byte = memory[addr + row_in_tile * 2 + 1];
+
+    uint8_t bit = 7 - pixel_x_inside_tile;
+
+    uint8_t low_bit = (low_byte >> bit) & 1;
+    uint8_t high_bit = (high_byte >> bit) & 1;
+
+    uint8_t color = low_bit | (high_bit << 1);
+
+    ppu_framebuffer[ly][x] = color;
+
+  }
+
+}
+
 void ppu_advance_clocks(uint8_t cycles)
 {
   bool lcd_enabled = CHECK_BIT(ppu_registers->lcdc, 7);
@@ -93,6 +135,8 @@ void ppu_advance_clocks(uint8_t cycles)
         ppu_set_mode(3);
       }
       else if (ppu_line_cycles == 252) {
+        // finished trasfering/rendering this visiable line
+        ppu_render_scanline();
         // we go from pixel transfer to HBlank
         ppu_set_mode(0);
 
@@ -148,4 +192,5 @@ void ppu_init()
     ppu_set_mode(0);
     ppu_update_lyc_flag();
 }
+
 
