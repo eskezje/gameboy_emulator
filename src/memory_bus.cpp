@@ -1,3 +1,4 @@
+#include <joypad.h>
 #include <ppu.h>
 #include <cart.h>
 #include <cart_type.h>
@@ -109,11 +110,12 @@ uint8_t memory_bus_read(const uint16_t addr)
     return 0x00;
   }
 
-  if (addr == 0xFF00) {
-    return 0xC0 | (memory[0xFF00] & 0x30) | 0x0F;
-  }
 
   if (addr >= 0xFF00 && addr <= 0xFF7F) {   // I/O registers
+    if (addr == 0xFF00) {
+      return joypad_read();
+    }
+
     return memory[addr];
   }
 
@@ -202,9 +204,14 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
   if (addr >= 0xFEA0 && addr <= 0xFEFF) {   // Unuseable memory area
     // nothing happens here, its all ignored
   }
-
+  
   if (addr >= 0xFF00 && addr <= 0xFF7F) {   // I/O registers
-    if (addr == 0xFF02 && value == 0x81) // blargg tests serial output
+    if (addr == 0xFF00) {
+      joypad_write(value);
+      return;
+    }
+
+    else if (addr == 0xFF02 && value == 0x81) // blargg tests serial output
     {
       char c = memory[0xFF01];
       printf("%c", c);

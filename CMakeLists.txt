@@ -19,6 +19,7 @@ add_executable(gameboy_emulator
     src/interrupts.cpp
     src/debug_log.cpp
     src/ppu.cpp
+    src/joypad.cpp
 )
 
 target_include_directories(gameboy_emulator PRIVATE

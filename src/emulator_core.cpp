@@ -1,3 +1,4 @@
+#include <joypad.h>
 #include <cstdio>
 #include <memory_bus.h>
 #include <cart.h>
@@ -22,6 +23,7 @@ int core_init() {
 
   timer_init();
   ppu_init();
+  joypad_init();
 
   cart_print_info();
 
@@ -44,6 +46,66 @@ void core_run() {
         switch (event.type) {
           case SDL_EVENT_QUIT:
             core_quit_requested = true;
+            break;
+          case SDL_EVENT_KEY_DOWN:
+            if (event.key.scancode == SDL_SCANCODE_Z) {
+              joypad_set_button(JoypadButton::A, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_X) {
+              joypad_set_button(JoypadButton::B, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RETURN) {
+              joypad_set_button(JoypadButton::Start, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_LSHIFT) {
+              joypad_set_button(JoypadButton::Select, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RSHIFT) {
+              joypad_set_button(JoypadButton::Select, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_UP) {
+              joypad_set_button(JoypadButton::Up, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_DOWN) {
+              joypad_set_button(JoypadButton::Down, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_LEFT) {
+              joypad_set_button(JoypadButton::Left, true);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RIGHT) {
+              joypad_set_button(JoypadButton::Right, true);
+            }
+            break;
+
+
+          case SDL_EVENT_KEY_UP:
+            if (event.key.scancode == SDL_SCANCODE_Z) {
+              joypad_set_button(JoypadButton::A, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_X) {
+              joypad_set_button(JoypadButton::B, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RETURN) {
+              joypad_set_button(JoypadButton::Start, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_LSHIFT) {
+              joypad_set_button(JoypadButton::Select, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RSHIFT) {
+              joypad_set_button(JoypadButton::Select, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_UP) {
+              joypad_set_button(JoypadButton::Up, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_DOWN) {
+              joypad_set_button(JoypadButton::Down, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_LEFT) {
+              joypad_set_button(JoypadButton::Left, false);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RIGHT) {
+              joypad_set_button(JoypadButton::Right, false);
+            }
             break;
         }
       }
