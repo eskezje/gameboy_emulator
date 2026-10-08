@@ -61,6 +61,17 @@ void ppu_set_mode(uint8_t mode)
   ppu_update_stat_interrupt();
 }
 
+DmgShade bgp_get_shade(uint8_t bgp, uint8_t color_id)
+{
+  // match the color id to the shade
+  // like color id 1 matches to light gray
+  uint8_t shift = color_id * 2;
+  // we then get bgp shifted into the right place where we can get the right shade for that color id
+  uint8_t shade = (bgp >> shift) & 0b11;
+
+  return (DmgShade)(shade);
+}
+
 
 void ppu_render_scanline()
 {
@@ -74,6 +85,7 @@ void ppu_render_scanline()
 
   bool tile_data_unsigned = CHECK_BIT(ppu_registers->lcdc, 4);  // $8000 method and $8800 method
   bool bg_enabled = CHECK_BIT(ppu_registers->lcdc, 0);
+  uint8_t bgp = memory[0xFF47];
   if (!bg_enabled) {
     for (uint16_t x = 0; x < 160; x++) {
       ppu_framebuffer[ly][x] = 0;
@@ -102,8 +114,9 @@ void ppu_render_scanline()
     uint8_t high_bit = (high_byte >> bit) & 1;
 
     uint8_t color = low_bit | (high_bit << 1);
+    DmgShade shade = bgp_get_shade(bgp, color);
 
-    ppu_framebuffer[ly][x] = color;
+    ppu_framebuffer[ly][x] = (uint8_t)shade;
   }
 }
 

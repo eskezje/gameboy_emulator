@@ -78,6 +78,13 @@ struct gb_ppu_registers
     uint8_t lyc;
 };
 
+enum class DmgShade : uint8_t {
+  White     = 0b00,
+  LightGray = 0b01,
+  DarkGray  = 0b10,
+  Black     = 0b11,
+};
+
 void ppu_update_stat_interrupt();
 void ppu_set_mode(uint8_t bits);
 void ppu_update_lyc_flag();
