@@ -20,6 +20,7 @@ bool ppu_stat_irq_line = false;
 // 2 = color 2
 // 3 = color 3
 uint8_t ppu_framebuffer[144][160];
+bool ppu_frame_ready = false;
 
 
 void ppu_update_stat_interrupt()
@@ -170,6 +171,9 @@ void ppu_advance_clocks(uint8_t cycles)
         // enter vblank mode 
         ppu_set_mode(1);
         interrupt_raise_flag(INTERRUPT_FLAG_V_BLANK);
+
+        // we finished a frame
+        ppu_frame_ready = true;
       }
       else if (ppu_registers->ly == 154) {
         // end of vblank so we start a new frame 

@@ -31,6 +31,11 @@ void core_run() {
 
   while (!core_quit_requested) {
     cpu_tick();
+    // check if ppu has completed a frame
+    if (ppu_frame_ready) {
+      // then we render it with SDL
+      ppu_frame_ready = false;
+    }
   }
 }
 

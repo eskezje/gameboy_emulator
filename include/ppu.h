@@ -91,6 +91,8 @@ void ppu_update_lyc_flag();
 void ppu_render_scanline();
 void ppu_init();
 
+extern bool ppu_frame_ready;
+
 extern gb_ppu_registers* ppu_registers;
 extern uint8_t ppu_framebuffer[144][160];
 
