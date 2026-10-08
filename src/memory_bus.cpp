@@ -109,6 +109,10 @@ uint8_t memory_bus_read(const uint16_t addr)
     return 0x00;
   }
 
+  if (addr == 0xFF00) {
+    return 0xC0 | (memory[0xFF00] & 0x30) | 0x0F;
+  }
+
   if (addr >= 0xFF00 && addr <= 0xFF7F) {   // I/O registers
     return memory[addr];
   }
