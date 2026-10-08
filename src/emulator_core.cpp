@@ -6,8 +6,9 @@
 #include <timer.h>
 #include <interrupts.h>
 #include <ppu.h>
+#include <SDL3/SDL_events.h>
 
-const char *tetris_path = "../roms/cpu_instrs/individual/02-interrupts.gb";
+const char *tetris_path = "../roms/tetris.gb";
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
 
@@ -27,14 +28,28 @@ int core_init() {
 
 void core_run() {
 
+  SDL_Event event;
+  uint32_t last_event_poll = 0;
+
   cpu_reset();
 
   while (!core_quit_requested) {
     cpu_tick();
-    // check if ppu has completed a frame
+
+    if (core_clock_counter - last_event_poll >= 1024) {
+      last_event_poll = core_clock_counter;
+      while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+          case SDL_EVENT_QUIT:
+            core_quit_requested = true;
+            break;
+        }
+      }
+    }
     if (ppu_frame_ready) {
       // then we render it with SDL
       ppu_frame_ready = false;
+
     }
   }
 }
