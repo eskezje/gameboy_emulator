@@ -85,6 +85,7 @@ enum class DmgShade : uint8_t {
   Black     = 0b11,
 };
 
+DmgShade bgp_get_shade(uint8_t bgp, uint8_t color_id);
 void ppu_update_stat_interrupt();
 void ppu_set_mode(uint8_t bits);
 void ppu_update_lyc_flag();
