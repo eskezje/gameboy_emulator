@@ -27,6 +27,7 @@ int SDLCALL goodbye_runapp_callback(int argc, char *argv[]) {
 
   if (!window) {
     SDL_Log("Error creating window: %s", SDL_GetError());
+    SDL_Quit();
     return SDL_APP_FAILURE;
   }
 
@@ -34,18 +35,23 @@ int SDLCALL goodbye_runapp_callback(int argc, char *argv[]) {
 
   if (!renderer) {
     SDL_Log("Error creating renderer: %s", SDL_GetError());
+    SDL_DestroyWindow(window);
+    SDL_Quit();
     return SDL_APP_FAILURE;
   }
 
   int error = core_init();
   if (error != 0) {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
     return error;
   }
 
   core_run();
 
-  SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
   SDL_Quit();
   return 0;
 }

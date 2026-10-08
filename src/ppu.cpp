@@ -210,6 +210,7 @@ void ppu_init()
     ppu_stat_irq_line = false;
 
     ppu_registers->stat |= 0b10000000;
+    ppu_frame_ready = false;
 
     ppu_set_mode(0);
     ppu_update_lyc_flag();
