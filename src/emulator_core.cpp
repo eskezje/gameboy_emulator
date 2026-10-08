@@ -13,7 +13,7 @@
 #include <chrono>
 #include <thread>
 
-const char *tetris_path = "../roms/tetris.gb";
+const char *tetris_path = "../roms/Super Mario Land (World) (Rev 1).gb";
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
 

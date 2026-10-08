@@ -76,12 +76,14 @@ DmgShade bgp_get_shade(uint8_t bgp, uint8_t color_id)
 
 void ppu_render_scanline()
 {
+
+  uint8_t pixel_x;
+  uint8_t pixel_y;
+  uint16_t current_tilemap_base;
+
   uint16_t addr;
   uint8_t ly = ppu_registers->ly;
-  uint8_t bg_y = ppu_registers->scy + ly;   // top left plus the offset of the scroll
 
-  uint8_t tile_y = bg_y/8;  // each tile is 8 tall, we later have to deal with potential sprites of 8x16
-  uint8_t row_in_tile = bg_y % 8;   // we get what row of the 8 rows in the tile we are drawing
   uint16_t tilemap_base = CHECK_BIT(ppu_registers->lcdc, 3) ? 0x9C00 : 0x9800;  // we figure out what base we are usign
 
   bool tile_data_unsigned = CHECK_BIT(ppu_registers->lcdc, 4);  // $8000 method and $8800 method
@@ -94,11 +96,31 @@ void ppu_render_scanline()
     return;
   }
 
+
+  bool window_enabled = CHECK_BIT(ppu_registers->lcdc, 5);
+  uint8_t wy = memory[0xFF4A];
+  uint8_t wx = memory[0xFF4B];
+  bool window_on_scanline =  window_enabled && bg_enabled && ly >= wy;
+
+
   for (uint16_t x = 0; x < 160; x++) {
-    uint8_t bg_x = ppu_registers->scx + x; // we offset it by the scrolls
-    uint8_t tile_x = bg_x / 8;
-    uint8_t pixel_x_inside_tile = bg_x % 8;
-    uint16_t address_map_entry = tilemap_base + 32*tile_y + tile_x;
+    bool window_pixel = window_on_scanline && (int)x >= (int)(wx) - 7;
+    if (window_pixel) {
+      pixel_x = x - ((int)(wx) - 7);
+      pixel_y = ly - wy;
+      current_tilemap_base = CHECK_BIT(ppu_registers->lcdc, 6) ? 0x9C00 : 0x9800;
+    }
+    else {
+      pixel_x = ppu_registers->scx + x;
+      pixel_y = ppu_registers->scy + ly;
+      current_tilemap_base = tilemap_base;
+    }
+
+    uint8_t tile_x = pixel_x/8;
+    uint8_t tile_y = pixel_y/8;
+    uint8_t pixel_x_inside_tile = pixel_x % 8;
+    uint8_t row_in_tile = pixel_y % 8;
+    uint16_t address_map_entry = current_tilemap_base + 32*tile_y + tile_x;
     uint8_t tile_number = memory[address_map_entry];
     if (tile_data_unsigned) {
       addr = 0x8000 + 16 * tile_number;
@@ -124,6 +146,7 @@ void ppu_render_scanline()
 void ppu_advance_clocks(uint8_t cycles)
 {
   bool lcd_enabled = CHECK_BIT(ppu_registers->lcdc, 7);
+
 
   if (!lcd_enabled) {
       ppu_line_cycles = 0;

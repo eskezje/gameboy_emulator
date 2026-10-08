@@ -225,6 +225,9 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
     else if (addr == 0xFF0F) {
       interrupt_flag_write(value);
     }
+    else if (addr == 0xFF40 && (value & BIT(5))) {
+      printf("Window enabled! LCDC = %02X\n", value);
+    }
     else if (addr == 0xFF41)
     {
       uint8_t ppu_bits = memory[addr] & 0b00000111;
