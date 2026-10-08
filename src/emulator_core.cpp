@@ -10,6 +10,8 @@
 #include <ppu.h>
 #include <SDL3/SDL_events.h>
 #include <frontend.h>
+#include <chrono>
+#include <thread>
 
 const char *tetris_path = "../roms/tetris.gb";
 uint32_t core_clock_counter = 0;
@@ -36,6 +38,10 @@ void core_run() {
   uint32_t last_event_poll = 0;
 
   cpu_reset();
+
+  using Clock = std::chrono::steady_clock;
+  const auto frame_duration = std::chrono::duration_cast<Clock::duration>(std::chrono::duration<double>(70224.0 / 4194304.0));
+  auto next_frame_time = Clock::now() + frame_duration;
 
   while (!core_quit_requested) {
     cpu_tick();
@@ -114,6 +120,13 @@ void core_run() {
       // then we render it with SDL
       render_frame_from_ppu_framebuffer();
       ppu_frame_ready = false;
+
+      std::this_thread::sleep_until(next_frame_time);
+      next_frame_time += frame_duration;
+
+      if (Clock::now() > next_frame_time) {
+        next_frame_time = Clock::now() + frame_duration;
+      }
 
     }
   }
