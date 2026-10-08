@@ -7,6 +7,7 @@
 #include <interrupts.h>
 #include <ppu.h>
 #include <SDL3/SDL_events.h>
+#include <frontend.h>
 
 const char *tetris_path = "../roms/tetris.gb";
 uint32_t core_clock_counter = 0;
@@ -48,6 +49,7 @@ void core_run() {
     }
     if (ppu_frame_ready) {
       // then we render it with SDL
+      render_frame_from_ppu_framebuffer();
       ppu_frame_ready = false;
 
     }

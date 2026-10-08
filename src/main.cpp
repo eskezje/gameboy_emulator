@@ -1,4 +1,5 @@
 #include <emulator_core.h>
+#include <frontend.h>
 #define SDL_MAIN_HANDLED
 
 #include <SDL3/SDL.h>
@@ -9,6 +10,7 @@
 
 SDL_Window* window;
 SDL_Renderer* renderer;
+SDL_Texture* texture = nullptr;
 
 int SDLCALL goodbye_runapp_callback(int argc, char *argv[]);
 
@@ -40,18 +42,39 @@ int SDLCALL goodbye_runapp_callback(int argc, char *argv[]) {
     return SDL_APP_FAILURE;
   }
 
+  texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 160, 144);
+
+  if (!texture) {
+    SDL_Log("Error creating texture: %s", SDL_GetError());
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return SDL_APP_FAILURE;
+  }
+
   int error = core_init();
   if (error != 0) {
+    SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
     return error;
   }
 
+
+
   core_run();
 
+  SDL_DestroyTexture(texture);
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
   return 0;
+}
+
+
+
+void render_frame_from_ppu_framebuffer()
+{
+  // then we need to do the magic here
 }
