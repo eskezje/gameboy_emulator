@@ -211,6 +211,8 @@ void ppu_init()
 
     ppu_registers->stat |= 0b10000000;
     ppu_frame_ready = false;
+    memory[0xFF40] = 0x91; // LCDC
+    memory[0xFF47] = 0xFC; // BGP
 
     ppu_set_mode(0);
     ppu_update_lyc_flag();

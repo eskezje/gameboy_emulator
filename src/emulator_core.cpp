@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <memory_bus.h>
 #include <cart.h>
 #include <cpu.h>
@@ -31,6 +32,7 @@ void core_run() {
 
   SDL_Event event;
   uint32_t last_event_poll = 0;
+  bool first_frame = false;
 
   cpu_reset();
 
@@ -49,6 +51,10 @@ void core_run() {
     }
     if (ppu_frame_ready) {
       // then we render it with SDL
+      if (first_frame) {
+        printf("Frame ready: LY=%u LCDC=%02X BGP=%02X\n", ppu_registers->ly, ppu_registers->lcdc, memory[0xFF47]);
+        first_frame = false;
+      }
       render_frame_from_ppu_framebuffer();
       ppu_frame_ready = false;
 
