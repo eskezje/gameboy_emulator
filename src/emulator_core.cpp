@@ -32,7 +32,7 @@ void core_run() {
 
   SDL_Event event;
   uint32_t last_event_poll = 0;
-  bool first_frame = false;
+  bool first_frame = true;
 
   cpu_reset();
 
